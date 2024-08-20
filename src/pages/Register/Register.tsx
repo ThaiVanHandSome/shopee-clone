@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { schema, Schema } from '../../utils/rules'
+import { registerSchema } from '../../utils/rules'
 import Input from '../../components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
@@ -8,8 +8,9 @@ import { registerAccount } from '../../apis/auth.api'
 import { omit } from 'lodash'
 import { isAxiosUnprocessableEntity } from '../../utils/utils'
 import { ResponseApi } from '../../types/utils.type'
+import * as yup from 'yup'
 
-type FormData = Schema
+type FormData = yup.InferType<typeof registerSchema>
 
 export default function Register() {
   const {
@@ -18,7 +19,7 @@ export default function Register() {
     setError,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(registerSchema)
   })
 
   const registerAccountMutation = useMutation({

@@ -1,4 +1,6 @@
-import { AuthResponse, RegisterType } from '../types/auth.type'
+import { AuthResponse, AuthRequestType } from '../types/auth.type'
 import http from '../utils/http'
 
-export const registerAccount = (body: RegisterType) => http.post<AuthResponse>('/register', body)
+export const registerAccount = (body: AuthRequestType) => http.post<AuthResponse>('/register', body)
+
+export const login = (body: AuthRequestType) => http.post<AuthResponse>('/login', body)

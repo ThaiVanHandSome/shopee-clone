@@ -7,7 +7,7 @@ export type AuthResponse = ResponseApi<{
   user: User
 }>
 
-export interface RegisterType {
+export interface AuthRequestType {
   email: string
   password: string
 }

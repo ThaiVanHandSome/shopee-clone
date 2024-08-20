@@ -52,7 +52,7 @@ export const rules: Rules = {
   }
 }
 
-export const schema = yup.object({
+export const registerSchema = yup.object({
   email: yup
     .string()
     .required('Email là bắt buộc')
@@ -72,4 +72,16 @@ export const schema = yup.object({
     .oneOf([yup.ref('password')], 'Nhập lại password không khớp')
 })
 
-export type Schema = yup.InferType<typeof schema>
+export const loginSchema = yup.object({
+  email: yup
+    .string()
+    .required('Email là bắt buộc')
+    .email('Email không đúng định dạng')
+    .min(5, 'Độ dài từ 5 - 160 kí tự')
+    .max(160, 'Độ dài từ 5 - 160 kí tự'),
+  password: yup
+    .string()
+    .required('Password là bắt buộc')
+    .min(5, 'Độ dài từ 6 - 160 kí tự')
+    .max(160, 'Độ dài từ 6 - 160 kí tự')
+})
