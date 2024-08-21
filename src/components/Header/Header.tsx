@@ -247,7 +247,7 @@ export default function Header() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='size-8'
+                className='size-8 w-full'
               >
                 <path
                   strokeLinecap='round'
