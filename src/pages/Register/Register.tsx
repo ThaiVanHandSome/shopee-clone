@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { registerSchema } from '../../utils/rules'
 import Input from '../../components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -7,12 +7,19 @@ import { useMutation } from '@tanstack/react-query'
 import { registerAccount } from '../../apis/auth.api'
 import { omit } from 'lodash'
 import { isAxiosUnprocessableEntity } from '../../utils/utils'
-import { ResponseApi } from '../../types/utils.type'
 import * as yup from 'yup'
+import { ErrorResponse } from '../../types/utils.type'
+import { useContext } from 'react'
+import { AppContext } from '../../contexts/app.context'
+import Button from '../../components/Button'
+import path from '../../constants/path'
+import { setUserToLocalStorage } from '../../utils/auth'
 
 type FormData = yup.InferType<typeof registerSchema>
 
 export default function Register() {
+  const { setIsAuthenticated, setUser } = useContext(AppContext)
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,10 +37,14 @@ export default function Register() {
     const body = omit(data, ['confirm_password'])
     registerAccountMutation.mutate(body, {
       onSuccess: (data) => {
-        console.log(data)
+        setIsAuthenticated(true)
+        const userData = data.data.data.user
+        setUser(userData)
+        setUserToLocalStorage(userData)
+        navigate(path.home)
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntity<ResponseApi<Omit<FormData, 'confirm_password'>>>(error)) {
+        if (isAxiosUnprocessableEntity<ErrorResponse<Omit<FormData, 'confirm_password'>>>(error)) {
           const formError = error.response?.data.data
           if (formError) {
             Object.keys(formError).forEach((key) => {
@@ -81,17 +92,19 @@ export default function Register() {
               />
               <div className='mt-4 text-center flex items-center'>
                 <span className='text-gray-400 me-2'>Bạn đã có tài khoản?</span>
-                <Link to='/login' className='text-red-400'>
+                <Link to={path.login} className='text-red-400'>
                   Đăng nhập
                 </Link>
               </div>
               <div className='mt-3'>
-                <button
+                <Button
+                  isLoading={registerAccountMutation.isPending}
+                  disabled={registerAccountMutation.isPending}
                   type='submit'
                   className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600'
                 >
                   Đăng ký
-                </button>
+                </Button>
               </div>
             </form>
           </div>
