@@ -17,7 +17,6 @@ export default function Login() {
     register,
     handleSubmit,
     setError,
-    watch,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(loginSchema)
@@ -47,8 +46,6 @@ export default function Login() {
       }
     })
   })
-
-  console.log(watch())
 
   return (
     <div className='bg-orange'>
