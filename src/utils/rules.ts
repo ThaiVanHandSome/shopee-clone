@@ -85,3 +85,31 @@ export const loginSchema = yup.object({
     .min(5, 'Độ dài từ 6 - 160 kí tự')
     .max(160, 'Độ dài từ 6 - 160 kí tự')
 })
+
+function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
+  const { price_min, price_max } = this.parent
+  if (price_min !== '' && price_max !== '') {
+    return Number(price_max) > Number(price_min)
+  }
+  return price_min !== '' || price_max !== ''
+}
+
+export const priceSchema = yup.object({
+  price_min: yup.string().test({
+    name: 'price-not-allow',
+    message: 'Giá không phù hợp',
+    test: testPriceMinMax
+  }),
+  price_max: yup.string().test({
+    name: 'price-not-allow',
+    message: 'Giá không phù hợp',
+    test: function (value) {
+      const price_max = value
+      const { price_min } = this.parent
+      if (price_min !== '' && price_max !== '') {
+        return Number(price_max) > Number(price_min)
+      }
+      return price_min !== '' || price_max !== ''
+    }
+  })
+})
