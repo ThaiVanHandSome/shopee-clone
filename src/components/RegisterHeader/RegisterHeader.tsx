@@ -1,5 +1,5 @@
 import { Link, useMatch } from 'react-router-dom'
-import path from '../../constants/path'
+import path from 'src/constants/path'
 
 export default function RegisterHeader() {
   const match = useMatch('/login')

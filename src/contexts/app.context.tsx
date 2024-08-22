@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
-import { getAccessTokenFromLocalStorage, getUserFromLocalStorage } from '../utils/auth'
-import { User } from '../types/user.type'
+import { User } from 'src/types/user.type'
+import { getAccessTokenFromLocalStorage, getUserFromLocalStorage } from 'src/utils/auth'
 
 interface AppContextInterface {
   isAuthenticated: boolean

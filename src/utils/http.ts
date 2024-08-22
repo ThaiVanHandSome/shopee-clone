@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
-import { HttpStatusCode } from '../constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { getAccessTokenFromLocalStorage, removeAuthInfoFromLocalStorage, setAccessTokenToLocalStorage } from './auth'
-import { AuthResponse } from '../types/auth.type'
-import path from '../constants/path'
+import path from 'src/constants/path'
+import { AuthResponse } from 'src/types/auth.type'
+import { HttpStatusCode } from 'src/constants/httpStatusCode.enum'
 
 class HTTP {
   instance: AxiosInstance
