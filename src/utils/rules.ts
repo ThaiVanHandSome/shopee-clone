@@ -86,6 +86,10 @@ export const loginSchema = yup.object({
     .max(160, 'Độ dài từ 6 - 160 kí tự')
 })
 
+export const searchSchema = yup.object({
+  search: yup.string().trim().required('Tên sản phẩm là bắt buộc')
+})
+
 function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
   const { price_min, price_max } = this.parent
   if (price_min !== '' && price_max !== '') {
