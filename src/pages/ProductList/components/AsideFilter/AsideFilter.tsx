@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
 import InputNumber from 'src/components/InputNumber'
+// import InputV2 from 'src/components/InputV2'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import RatingStar from 'src/pages/ProductList/components/RatingStar'
@@ -140,12 +141,10 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               render={({ field }) => {
                 return (
                   <InputNumber
-                    type='text'
                     placeholder='TỪ'
                     className='flex-grow'
                     classNameError='hidden'
                     {...field}
-                    name='from'
                     classNameInput='p-1 text-sm w-full outline-none border-2 border-gray-300 focus:shadow-sm focus:border-gray-500 rounded-sm'
                     onChange={(event) => {
                       field.onChange(event)
@@ -155,6 +154,18 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                 )
               }}
             />
+            {/* <InputV2
+              control={control}
+              name='price_min'
+              type='number'
+              placeholder='TỪ'
+              className='flex-grow'
+              classNameError='hidden'
+              classNameInput='p-1 text-sm w-full outline-none border-2 border-gray-300 focus:shadow-sm focus:border-gray-500 rounded-sm'
+              onChange={() => {
+                trigger('price_max')
+              }}
+            /> */}
             <div className='mx-2 mt-2 shrink-0'>-</div>
             <Controller
               control={control}
@@ -167,7 +178,6 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                     classNameError='hidden'
                     placeholder='ĐẾN'
                     {...field}
-                    name='to'
                     classNameInput='p-1 text-sm w-full outline-none border-2 border-gray-300 focus:shadow-sm focus:border-gray-500 rounded-sm'
                     onChange={(event) => {
                       field.onChange(event)

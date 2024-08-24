@@ -9,6 +9,7 @@ import Login from 'src/pages/Login'
 import RegisterLayout from 'src/layouts/RegisterLayout'
 import Register from 'src/pages/Register'
 import ProductDetail from 'src/pages/ProductDetail'
+import Cart from 'src/pages/Cart'
 
 export default function useRouteElement() {
   const { isAuthenticated } = useContext(AppContext)
@@ -48,6 +49,14 @@ export default function useRouteElement() {
           element: (
             <MainLayout>
               <Profile />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.cart,
+          element: (
+            <MainLayout>
+              <Cart />
             </MainLayout>
           )
         }

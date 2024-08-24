@@ -1,5 +1,5 @@
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { logout } from 'src/apis/auth.api'
@@ -11,6 +11,10 @@ import * as yup from 'yup'
 import { searchSchema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { omit } from 'lodash'
+import { purchaseStatus } from 'src/constants/purchase'
+import { getPurchases } from 'src/apis/purchase.api'
+import { formatCurrency, generateNameId } from 'src/utils/utils'
+import { queryClient } from 'src/main'
 
 type FormData = yup.InferType<typeof searchSchema>
 
@@ -29,8 +33,19 @@ export default function Header() {
     onSuccess: () => {
       setIsAuthenticated(false)
       setUser(null)
+      queryClient.removeQueries({
+        queryKey: ['purchases', { status: purchaseStatus.inCart }]
+      })
     }
   })
+
+  const { data: cartData } = useQuery({
+    queryKey: ['purchases', { status: purchaseStatus.inCart }],
+    queryFn: () => getPurchases({ status: purchaseStatus.inCart }),
+    enabled: isAuthenticated
+  })
+  const cart = cartData?.data.data
+  console.log(cart)
 
   const handleLogout = () => {
     logoutMutation.mutate()
@@ -51,6 +66,10 @@ export default function Header() {
       ).toString()
     })
   })
+
+  const navigateToProductDetail = (name: string, id: string) => {
+    navigate(path.home + generateNameId(name, id))
+  }
 
   return (
     <header
@@ -188,95 +207,52 @@ export default function Header() {
             renderPopover={
               <div className='max-w-[400px] text-sm'>
                 <div className='py-2 px-2'>
-                  <div className='text-gray-400 capitalize'>Sản phẩm mới thêm</div>
-                  <div className='mt-5'>
-                    <div className='mt-5 flex'>
-                      <div className='flex-shrink-0'>
-                        <img
-                          src='https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
-                          alt='anh'
-                          className='w-11 h-11 object-cover'
-                        />
+                  {(cart?.length === 0 || !cart) && <div>Chưa có sản phẩm</div>}
+                  {cart && cart?.length !== 0 && (
+                    <>
+                      <div className='text-gray-400 capitalize'>Sản phẩm mới thêm</div>
+                      <div className='mt-5'>
+                        {cart?.slice(0, 5).map((item) => (
+                          <div
+                            key={item._id}
+                            onClick={() => navigateToProductDetail(item.product.name, item.product._id)}
+                            className='px-3 py-2 mt-5 flex hover:bg-gray-100 cursor-pointer'
+                            aria-hidden='true'
+                          >
+                            <div className='flex-shrink-0'>
+                              <img
+                                src={item.product.image}
+                                alt={item.product.name}
+                                className='w-11 h-11 object-cover'
+                              />
+                            </div>
+                            <div className='flex-grow ml-2 overflow-hidden'>
+                              <div className='truncate'>{item.product.name}</div>
+                            </div>
+                            <div className='flex-shrink-0 ml-2'>
+                              <span className='text-orange font-bold'>đ{formatCurrency(item.product.price)}</span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <div className='flex-grow ml-2 overflow-hidden'>
-                        <div className='truncate'>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</div>
+                      <div className='flex mt-6 items-center justify-between'>
+                        <div className='capitalize text-xs text-gray-500'>
+                          {Math.max(0, (cart?.length as number) - 5)} Thêm hàng vào giỏ
+                        </div>
+                        <Link
+                          to={path.cart}
+                          className='capitalize bg-orange bg-opacity-90 px-4 py-2 rounded-sm text-white'
+                        >
+                          Xem giỏ hàng
+                        </Link>
                       </div>
-                      <div className='flex-shrink-0 ml-2'>
-                        <span className='text-orange font-bold'>đ469.000</span>
-                      </div>
-                    </div>
-                    <div className='mt-5 flex'>
-                      <div className='flex-shrink-0'>
-                        <img
-                          src='https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
-                          alt='anh'
-                          className='w-11 h-11 object-cover'
-                        />
-                      </div>
-                      <div className='flex-grow ml-2 overflow-hidden'>
-                        <div className='truncate'>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</div>
-                      </div>
-                      <div className='flex-shrink-0 ml-2'>
-                        <span className='text-orange font-bold'>đ469.000</span>
-                      </div>
-                    </div>
-                    <div className='mt-5 flex'>
-                      <div className='flex-shrink-0'>
-                        <img
-                          src='https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
-                          alt='anh'
-                          className='w-11 h-11 object-cover'
-                        />
-                      </div>
-                      <div className='flex-grow ml-2 overflow-hidden'>
-                        <div className='truncate'>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</div>
-                      </div>
-                      <div className='flex-shrink-0 ml-2'>
-                        <span className='text-orange font-bold'>đ469.000</span>
-                      </div>
-                    </div>
-                    <div className='mt-5 flex'>
-                      <div className='flex-shrink-0'>
-                        <img
-                          src='https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
-                          alt='anh'
-                          className='w-11 h-11 object-cover'
-                        />
-                      </div>
-                      <div className='flex-grow ml-2 overflow-hidden'>
-                        <div className='truncate'>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</div>
-                      </div>
-                      <div className='flex-shrink-0 ml-2'>
-                        <span className='text-orange font-bold'>đ469.000</span>
-                      </div>
-                    </div>
-                    <div className='mt-5 flex'>
-                      <div className='flex-shrink-0'>
-                        <img
-                          src='https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
-                          alt='anh'
-                          className='w-11 h-11 object-cover'
-                        />
-                      </div>
-                      <div className='flex-grow ml-2 overflow-hidden'>
-                        <div className='truncate'>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</div>
-                      </div>
-                      <div className='flex-shrink-0 ml-2'>
-                        <span className='text-orange font-bold'>đ469.000</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='flex mt-6 items-center justify-between'>
-                    <div className='capitalize text-xs text-gray-500'>1 Thêm vào giỏ hàng</div>
-                    <button className='capitalize bg-orange bg-opacity-90 px-4 py-2 rounded-sm text-white'>
-                      Xem giỏ hàng
-                    </button>
-                  </div>
+                    </>
+                  )}
                 </div>
               </div>
             }
           >
-            <Link to='/'>
+            <Link to={path.cart} className='relative'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -291,6 +267,11 @@ export default function Header() {
                   d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z'
                 />
               </svg>
+              {cart && (
+                <span className='absolute top-[-5px] left-[17px] rounded-full px-3 py-[1px] bg-white text-orange text-xs font-bold'>
+                  {cart?.length}
+                </span>
+              )}
             </Link>
           </Popover>
         </div>

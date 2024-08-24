@@ -1,12 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { getProductDetail, getProducts } from 'src/apis/product.api'
-import InputNumber from 'src/components/InputNumber'
+import { addToCart } from 'src/apis/purchase.api'
 import ProductRating from 'src/components/ProductRating'
 import QuantityController from 'src/components/QuantityController'
+import { purchaseStatus } from 'src/constants/purchase'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { queryClient } from 'src/main'
 import Product from 'src/pages/ProductList/components/Product'
 import { ProductListConfig } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
@@ -39,6 +42,10 @@ export default function ProductDetail() {
     },
     staleTime: 3 * 60 * 1000,
     enabled: Boolean(product)
+  })
+
+  const addToCartMutation = useMutation({
+    mutationFn: addToCart
   })
 
   useEffect(() => {
@@ -89,6 +96,21 @@ export default function ProductDetail() {
 
   const handleBuyCount = (value: number) => {
     setBuyCount(value)
+  }
+
+  const handleAddToCart = () => {
+    const body = {
+      product_id: product?._id as string,
+      buy_count: buyCount
+    }
+    addToCartMutation.mutate(body, {
+      onSuccess: (data) => {
+        toast.success(data.data.message, { autoClose: 1000 })
+        queryClient.invalidateQueries({
+          queryKey: ['purchases', { status: purchaseStatus.inCart }]
+        })
+      }
+    })
   }
 
   if (!product) return null
@@ -196,7 +218,10 @@ export default function ProductDetail() {
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
               <div className='mt-8 flex items-center'>
-                <button className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'>
+                <button
+                  onClick={handleAddToCart}
+                  className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'

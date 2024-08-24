@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useState } from 'react'
 import InputNumber, { InputNumberProps } from 'src/components/InputNumber'
 
 interface Props extends InputNumberProps {
@@ -18,6 +19,7 @@ export default function QuantityController({
   value,
   ...rest
 }: Props) {
+  const [localValue, setLocalValue] = useState(Number(value || 0))
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let _value = Number(event.target.value)
     if (max !== undefined && _value > max) {
@@ -26,23 +28,29 @@ export default function QuantityController({
       _value = 1
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onType && onType(_value)
+    setLocalValue(_value)
   }
 
   const increase = () => {
-    let _value = Number(value) + 1
+    let _value = Number(value || localValue) + 1
     if (max !== undefined && _value > max) {
       _value = max
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onIncrease && onIncrease(_value)
+    setLocalValue(_value)
   }
 
   const decrease = () => {
-    let _value = Number(value) - 1
+    let _value = Number(value || localValue) - 1
     if (_value < 1) {
       _value = 1
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onDecrease && onDecrease(_value)
+    setLocalValue(_value)
   }
   return (
     <div className={clsx('flex items-center', classNameWrapper)}>
@@ -62,7 +70,7 @@ export default function QuantityController({
         </svg>
       </button>
       <InputNumber
-        value={value}
+        value={value || localValue}
         className=''
         classNameError='hidden'
         classNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none'
