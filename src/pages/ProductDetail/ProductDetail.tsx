@@ -214,6 +214,7 @@ export default function ProductDetail() {
                   onDecrease={handleBuyCount}
                   onIncrease={handleBuyCount}
                   onType={handleBuyCount}
+                  classNameWrapper='ml-5'
                 />
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>

@@ -45,7 +45,6 @@ export default function Header() {
     enabled: isAuthenticated
   })
   const cart = cartData?.data.data
-  console.log(cart)
 
   const handleLogout = () => {
     logoutMutation.mutate()
