@@ -49,6 +49,9 @@ class HTTP {
           const message = data.message || error.message
           toast.error(message)
         }
+        if (error.response?.status === HttpStatusCode.Unauthorized) {
+          removeAuthInfoFromLocalStorage()
+        }
         return Promise.reject(error)
       }
     )

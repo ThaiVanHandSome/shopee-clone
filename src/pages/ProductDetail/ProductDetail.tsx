@@ -1,21 +1,22 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getProductDetail, getProducts } from 'src/apis/product.api'
 import { addToCart } from 'src/apis/purchase.api'
 import ProductRating from 'src/components/ProductRating'
 import QuantityController from 'src/components/QuantityController'
+import path from 'src/constants/path'
 import { purchaseStatus } from 'src/constants/purchase'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
-import { queryClient } from 'src/main'
 import Product from 'src/pages/ProductList/components/Product'
 import { ProductListConfig } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 
 const RANGE = 5
 export default function ProductDetail() {
+  const queryClient = useQueryClient()
   const { nameId } = useParams()
   const id = getIdFromNameId(nameId as string)
   const { data: productData } = useQuery({
@@ -28,6 +29,7 @@ export default function ProductDetail() {
   const [activeImage, setActiveImage] = useState<string>('')
   const [buyCount, setBuyCount] = useState<number>(1)
   const imageRef = useRef<HTMLImageElement>(null)
+  const navigate = useNavigate()
 
   const product = productData?.data.data
   const currentImages = useMemo(() => {
@@ -113,6 +115,23 @@ export default function ProductDetail() {
     })
   }
 
+  const handleBuyNow = async () => {
+    const body = {
+      product_id: product?._id as string,
+      buy_count: buyCount
+    }
+    const res = await addToCartMutation.mutateAsync(body)
+    const purchase = res.data.data
+    queryClient.invalidateQueries({
+      queryKey: ['purchases', { status: purchaseStatus.inCart }]
+    })
+    navigate(path.cart, {
+      state: {
+        cartId: purchase._id
+      }
+    })
+  }
+
   if (!product) return null
   return (
     <div className='bg-gray-200 py-6'>
@@ -121,13 +140,13 @@ export default function ProductDetail() {
           <div className='grid grid-cols-12 gap-9'>
             <div className='col-span-5'>
               <div
-                className='relative w-full pt-[100%] shadow overflow-hidden hover:cursor-zoom-in'
+                className='relative w-full overflow-hidden pt-[100%] shadow hover:cursor-zoom-in'
                 onMouseMove={(event) => handleZoom(event)}
                 onMouseLeave={handleRemoveZoom}
               >
                 <img
                   ref={imageRef}
-                  className='absolute pointer-events-none top-0 left-0 bg-white w-full h-full object-cover'
+                  className='pointer-events-none absolute left-0 top-0 h-full w-full bg-white object-cover'
                   src={activeImage}
                   alt={product.name}
                 />
@@ -153,11 +172,11 @@ export default function ProductDetail() {
                   return (
                     <div
                       key={imgUrl}
-                      className='relative w-full pt-[100%] col-span-1 cursor-pointer'
+                      className='relative col-span-1 w-full cursor-pointer pt-[100%]'
                       onMouseEnter={() => chooseActive(imgUrl)}
                     >
                       <img
-                        className='absolute top-0 left-0 bg-white w-full h-full object-cover'
+                        className='absolute left-0 top-0 h-full w-full bg-white object-cover'
                         src={imgUrl}
                         alt={product.name}
                       />
@@ -239,7 +258,10 @@ export default function ProductDetail() {
                   </svg>
                   <span className='ms-2'>Thêm vào giỏ hàng</span>
                 </button>
-                <button className='ml-4 flex h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'>
+                <button
+                  onClick={handleBuyNow}
+                  className='ml-4 flex h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                >
                   Mua Ngay
                 </button>
               </div>
@@ -250,7 +272,7 @@ export default function ProductDetail() {
       <div className='container'>
         <div className='mt-8 bg-white p-4 shadow'>
           <div className='rounded bg-gray-50 p-4 text-lg capitalize text-slate-700'>Mô tả sản phẩm</div>
-          <div className='mx-4 mt-12 mb-4 text-sm leading-loose'>
+          <div className='mx-4 mb-4 mt-12 text-sm leading-loose'>
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(product.description)
@@ -263,7 +285,7 @@ export default function ProductDetail() {
         <div className='container'>
           <div className='uppercase text-gray-400'>CÓ THỂ BẠN CŨNG THÍCH</div>
           {productData && (
-            <div className='mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3'>
+            <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
               {productsData?.data.data.products.map((product) => (
                 <div key={product._id}>
                   <Product product={product} />

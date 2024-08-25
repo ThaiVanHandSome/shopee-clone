@@ -1,4 +1,5 @@
-import { createContext, useState } from 'react'
+import { createContext, useMemo, useState } from 'react'
+import { ExtendedCart } from 'src/types/purchase.type'
 import { User } from 'src/types/user.type'
 import { getAccessTokenFromLocalStorage, getUserFromLocalStorage } from 'src/utils/auth'
 
@@ -7,13 +8,17 @@ interface AppContextInterface {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   user: User | null
   setUser: React.Dispatch<React.SetStateAction<User | null>>
+  extendedCart: ExtendedCart[]
+  setExtendedCart: React.Dispatch<React.SetStateAction<ExtendedCart[]>>
 }
 
 const initialAppContext: AppContextInterface = {
   isAuthenticated: Boolean(getAccessTokenFromLocalStorage()),
   setIsAuthenticated: () => null,
   user: getUserFromLocalStorage(),
-  setUser: () => null
+  setUser: () => null,
+  extendedCart: [],
+  setExtendedCart: () => null
 }
 
 export const AppContext = createContext<AppContextInterface>(initialAppContext)
@@ -21,17 +26,19 @@ export const AppContext = createContext<AppContextInterface>(initialAppContext)
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAppContext.isAuthenticated)
   const [user, setUser] = useState(initialAppContext.user)
+  const [extendedCart, setExtendedCart] = useState<ExtendedCart[]>(initialAppContext.extendedCart)
 
-  return (
-    <AppContext.Provider
-      value={{
-        isAuthenticated,
-        setIsAuthenticated,
-        user,
-        setUser
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+  const value = useMemo(
+    () => ({
+      isAuthenticated,
+      setIsAuthenticated,
+      user,
+      setUser,
+      extendedCart,
+      setExtendedCart
+    }),
+    [isAuthenticated, user, extendedCart]
   )
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

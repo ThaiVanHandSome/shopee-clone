@@ -10,17 +10,18 @@ import RegisterLayout from 'src/layouts/RegisterLayout'
 import Register from 'src/pages/Register'
 import ProductDetail from 'src/pages/ProductDetail'
 import Cart from 'src/pages/Cart'
+import CartLayout from 'src/layouts/CartLayout'
 
-export default function useRouteElement() {
+function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
-  function ProtectedRoute() {
-    return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
-  }
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
+}
 
-  function RejectedRoute() {
-    return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />
-  }
-
+function RejectedRoute() {
+  const { isAuthenticated } = useContext(AppContext)
+  return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />
+}
+export default function useRouteElement() {
   const routeElement = useRoutes([
     {
       path: path.home,
@@ -55,9 +56,9 @@ export default function useRouteElement() {
         {
           path: path.cart,
           element: (
-            <MainLayout>
+            <CartLayout>
               <Cart />
-            </MainLayout>
+            </CartLayout>
           )
         }
       ]
