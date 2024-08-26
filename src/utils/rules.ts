@@ -117,3 +117,27 @@ export const priceSchema = yup.object({
     }
   })
 })
+
+export const userSchema = yup.object({
+  name: yup.string().max(160, 'Độ dài tối đa là 160 ký tự'),
+  phone: yup.string().max(20, 'Độ dài tối đa là 20'),
+  address: yup.string().max(160, 'Độ dài tối đa là 160 ký tự'),
+  avatar: yup.string().max(1000, 'Độ dài tối đa là 1000 ký tự'),
+  date_of_birth: yup.date().max(new Date(), 'Hãy chọn một ngày trong quá khứ'),
+  password: yup
+    .string()
+    .required('Password là bắt buộc')
+    .min(5, 'Độ dài từ 6 - 160 kí tự')
+    .max(160, 'Độ dài từ 6 - 160 kí tự'),
+  new_password: yup
+    .string()
+    .required('Password là bắt buộc')
+    .min(5, 'Độ dài từ 6 - 160 kí tự')
+    .max(160, 'Độ dài từ 6 - 160 kí tự'),
+  confirm_password: yup
+    .string()
+    .required('Confirm password là bắt buộc')
+    .min(5, 'Độ dài từ 6 - 160 kí tự')
+    .max(160, 'Độ dài từ 6 - 160 kí tự')
+    .oneOf([yup.ref('new_password')], 'Nhập lại password không khớp')
+})

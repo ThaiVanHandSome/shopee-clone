@@ -8,6 +8,7 @@ import { purchaseStatus } from 'src/constants/purchase'
 import { AppContext } from 'src/contexts/app.context'
 
 export default function NavHeader() {
+  const { user: profile } = useContext(AppContext)
   const queryClient = useQueryClient()
   const { isAuthenticated, setIsAuthenticated, user, setUser } = useContext(AppContext)
   const logoutMutation = useMutation({
@@ -67,12 +68,15 @@ export default function NavHeader() {
           renderPopover={
             <div className='w-full text-sm'>
               <Link
-                to='/profile'
+                to={path.profile}
                 className='block w-full bg-white px-3 py-2 text-left hover:bg-slate-100 hover:text-cyan-500'
               >
                 Tài khoản của tôi
               </Link>
-              <Link to='/' className='block w-full bg-white px-3 py-2 text-left hover:bg-slate-100 hover:text-cyan-500'>
+              <Link
+                to={path.historyPurchase}
+                className='block w-full bg-white px-3 py-2 text-left hover:bg-slate-100 hover:text-cyan-500'
+              >
                 Đơn mua
               </Link>
               <button
@@ -87,7 +91,10 @@ export default function NavHeader() {
           <div className='mr-2 h-6 w-6 flex-shrink-0'>
             <img
               className='h-full w-full rounded-full object-cover'
-              src='https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
+              src={
+                profile?.avatar ??
+                'https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
+              }
               alt='avatar'
             />
           </div>

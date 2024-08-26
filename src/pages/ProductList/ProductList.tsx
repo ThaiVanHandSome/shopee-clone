@@ -3,10 +3,10 @@ import AsideFilter from './components/AsideFilter'
 import { getProducts } from 'src/apis/product.api'
 import SortProductList from 'src/pages/ProductList/components/SortProductList'
 import Product from 'src/pages/ProductList/components/Product/Product'
-import Paginate from 'src/components/Paginate'
 import { ProductListConfig } from 'src/types/product.type'
 import { getCategories } from 'src/apis/category.api'
 import useQueryConfig, { QueryConfig } from 'src/hooks/useQueryConfig'
+import Paginate from 'src/components/Paginate'
 
 export default function ProductList() {
   const queryConfig: QueryConfig = useQueryConfig()
@@ -27,7 +27,7 @@ export default function ProductList() {
   })
 
   return (
-    <div className='bg-gray-200 py-6 '>
+    <div className='bg-gray-200 py-6'>
       <div className='container'>
         {productsData && (
           <div className='grid grid-cols-12 gap-6'>
@@ -36,7 +36,7 @@ export default function ProductList() {
             </div>
             <div className='col-span-9'>
               <SortProductList queryConfig={queryConfig} pageSize={productsData.data.data.pagination.page_size} />
-              <div className='mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
+              <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
                 {productsData.data.data.products.map((product) => (
                   <div key={product._id}>
                     <Product product={product} />

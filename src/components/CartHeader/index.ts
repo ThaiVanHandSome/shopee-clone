@@ -1,3 +1,3 @@
-import CartHeader from 'src/components/CartHeader/CartHeader'
+import CartHeader from './CartHeader'
 
 export default CartHeader

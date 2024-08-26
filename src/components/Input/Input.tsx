@@ -4,6 +4,7 @@ import type { RegisterOptions, UseFormRegister } from 'react-hook-form'
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   readonly errorMessage?: string
   readonly className?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly register?: UseFormRegister<any>
   readonly rules?: RegisterOptions
   readonly classNameInput?: string
