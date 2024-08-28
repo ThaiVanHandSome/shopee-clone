@@ -64,8 +64,19 @@ export default function ProductList() {
             </div>
             <div
               ref={filterRef}
-              className='fixed bottom-0 left-[-300px] top-0 z-40 w-[300px] bg-white transition-all md:relative md:!left-0 md:col-span-3 md:w-auto md:bg-gray-200'
+              className='fixed bottom-0 left-[-300px] top-0 z-40 w-[300px] overflow-y-auto bg-white transition-all md:relative md:!left-0 md:col-span-3 md:w-auto md:bg-gray-200'
             >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='absolute right-2 top-2 z-30 size-6 cursor-pointer text-black md:hidden'
+                onClick={() => setOpenMobileFilter(false)}
+              >
+                <path strokeLinecap='round' strokeLinejoin='round' d='M6 18 18 6M6 6l12 12' />
+              </svg>
               <AsideFilter categories={categoriesData?.data.data || []} queryConfig={queryConfig} />
             </div>
             {openMobileFilter && (

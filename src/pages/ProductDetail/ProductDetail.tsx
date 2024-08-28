@@ -137,7 +137,7 @@ export default function ProductDetail() {
     <div className='bg-gray-200 py-6'>
       <div className='container'>
         <div className='bg-white p-4 shadow'>
-          <div className='grid grid-cols-12 gap-9'>
+          <div className='grid grid-cols-12 gap-4'>
             <div className='col-span-12 md:col-span-5'>
               <div
                 className='relative w-full overflow-hidden pt-[100%] shadow hover:cursor-zoom-in'
@@ -218,29 +218,29 @@ export default function ProductDetail() {
                   <span className='ms-1 text-sm text-gray-500'>Đã bán</span>
                 </div>
               </div>
-              <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
+              <div className='mt-8 flex flex-col justify-start bg-gray-50 px-5 py-4 md:flex-row md:items-center'>
                 <div className='text-gray-500 line-through'>đ{formatCurrency(product.price_before_discount)}</div>
-                <div className='ml-3 text-3xl font-medium text-orange'>đ{formatCurrency(product.price)}</div>
-                <div className='ml-4 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white'>
+                <div className='ml-0 text-3xl font-medium text-orange md:ml-3'>đ{formatCurrency(product.price)}</div>
+                <div className='ml-0 w-1/3 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white md:ml-4'>
                   {rateSale(product.price_before_discount, product.price)} giảm
                 </div>
               </div>
-              <div className='mt-8 flex items-center'>
-                <div className='capitalize text-gray-500'>Số lượng</div>
+              <div className='mt-8 flex flex-col items-start md:flex-row md:items-center'>
+                <div className='mb-2 capitalize text-gray-500 md:mb-0'>Số lượng</div>
                 <QuantityController
                   max={product.quantity}
                   value={buyCount}
                   onDecrease={handleBuyCount}
                   onIncrease={handleBuyCount}
                   onType={handleBuyCount}
-                  classNameWrapper='ml-5'
+                  classNameWrapper='md:ml-5 mb-2 md:mb-0'
                 />
-                <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
+                <div className='text-sm text-gray-500 md:ml-6'>{product.quantity} sản phẩm có sẵn</div>
               </div>
-              <div className='mt-8 flex items-center'>
+              <div className='mt-8 flex flex-col items-center'>
                 <button
                   onClick={handleAddToCart}
-                  className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
+                  className='mb-2 flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5 md:mb-0'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -260,7 +260,7 @@ export default function ProductDetail() {
                 </button>
                 <button
                   onClick={handleBuyNow}
-                  className='ml-4 flex h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                  className='ml-4 flex h-12 items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90 md:min-w-[5rem]'
                 >
                   Mua Ngay
                 </button>
