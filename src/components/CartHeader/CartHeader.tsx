@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import NavBar from 'src/components/Header/components/NavBar'
 import NavHeader from 'src/components/NavHeader'
 import path from 'src/constants/path'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 
 export default function CartHeader() {
   const { onSubmitSearch, register } = useSearchProducts()
+  const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false)
   return (
     <div className='border-b border-b-black/10'>
       <div className='bg-orange text-white'>
@@ -14,7 +17,7 @@ export default function CartHeader() {
       </div>
       <div className='bg-white py-6'>
         <div className='container'>
-          <div className='md:flex md:items-center md:justify-between'>
+          <div className='flex items-center justify-between'>
             <Link to={path.home} className='flex flex-shrink-0 items-center'>
               <div>
                 <svg viewBox='0 0 192 65' className='h-8 fill-orange lg:h-11'>
@@ -26,7 +29,7 @@ export default function CartHeader() {
               <div className='mx-4 h-8 w-[1px] bg-orange'></div>
               <div className='capitalize text-orange lg:text-xl'>Giỏ hàng</div>
             </Link>
-            <form className='mt-3 md:mt-0 md:w-[50%]' onSubmit={onSubmitSearch}>
+            <form className='mt-3 hidden md:mt-0 md:block md:w-[50%]' onSubmit={onSubmitSearch}>
               <div className='flex rounded-md border-2 border-orange'>
                 <input
                   {...register('search')}
@@ -56,6 +59,36 @@ export default function CartHeader() {
                 </button>
               </div>
             </form>
+
+            {/* show on mobile */}
+            <div
+              aria-hidden='true'
+              className='flex cursor-pointer justify-end md:hidden'
+              onClick={() => setOpenMobileMenu(true)}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='size-6'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5'
+                />
+              </svg>
+            </div>
+            {openMobileMenu && (
+              <div
+                aria-hidden='true'
+                className='bg-black-layer fixed bottom-0 left-0 right-0 top-0 z-30'
+                onClick={() => setOpenMobileMenu(false)}
+              />
+            )}
+            <NavBar isOpen={openMobileMenu} setIsOpen={setOpenMobileMenu} />
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { omit } from 'lodash'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { sortBy, order as OrderConstant } from 'src/constants/product'
-import { QueryConfig } from 'src/pages/ProductList/ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { ProductListConfig } from 'src/types/product.type'
 
 interface Props {
@@ -47,32 +47,32 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
   }
 
   return (
-    <div className='bg-gray-300/40 py-4 px-3'>
+    <div className='bg-gray-300/40 px-3 py-4'>
       <div className='flex flex-wrap items-center justify-between gap-2'>
-        <div className='flex items-center flex-wrap gap-2'>
+        <div className='flex flex-wrap items-center gap-2'>
           <div className='text-sm'>Sắp xếp theo</div>
           <button
-            className={clsx('h-8 px-4 capitalizetext-sm text-center', {
+            className={clsx('capitalizetext-sm h-8 rounded-sm px-4 text-center', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.view),
-              'bg-white text-block hover:bg-slate-100': !isActiveSortBy(sortBy.view)
+              'text-block bg-white hover:bg-slate-100': !isActiveSortBy(sortBy.view)
             })}
             onClick={() => handleSort(sortBy.view)}
           >
             Phổ biến
           </button>
           <button
-            className={clsx('h-8 px-4 capitalizetext-sm text-center', {
+            className={clsx('capitalizetext-sm h-8 rounded-sm px-4 text-center', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.createAt),
-              'bg-white text-block hover:bg-slate-100': !isActiveSortBy(sortBy.createAt)
+              'text-block bg-white hover:bg-slate-100': !isActiveSortBy(sortBy.createAt)
             })}
             onClick={() => handleSort(sortBy.createAt)}
           >
             Mới nhất
           </button>
           <button
-            className={clsx('h-8 px-4 capitalizetext-sm text-center', {
+            className={clsx('capitalizetext-sm h-8 rounded-sm px-4 text-center', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.sold),
-              'bg-white text-block hover:bg-slate-100': !isActiveSortBy(sortBy.sold)
+              'text-block bg-white hover:bg-slate-100': !isActiveSortBy(sortBy.sold)
             })}
             onClick={() => handleSort(sortBy.sold)}
           >
@@ -80,7 +80,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           </button>
           <select
             value={order ?? ''}
-            className={clsx('h-8 px-4 capitalize  text-sm text-left cursor-pointer', {
+            className={clsx('h-8 cursor-pointer rounded-sm px-4 text-left text-sm capitalize', {
               'bg-white/80 text-black hover:bg-slate-100': !isActiveSortBy(sortBy.price),
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.price)
             })}
@@ -104,7 +104,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           </div>
           <div className='ml-2 flex items-center'>
             {page === 1 ? (
-              <span className='flex justify-center items-center h-8 w-9 cursor-not-allowed rouded-tl-sm rounded-bl-sm bg-white/60 shadow hover:bg-slate-100'>
+              <span className='rouded-tl-sm flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm bg-white/60 shadow hover:bg-slate-100'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -125,7 +125,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
                     page: (page - 1).toString()
                   }).toString()
                 }}
-                className='flex justify-center items-center h-8 w-9 rouded-tl-sm rounded-bl-sm bg-white shadow hover:bg-slate-100'
+                className='rouded-tl-sm flex h-8 w-9 items-center justify-center rounded-bl-sm bg-white shadow hover:bg-slate-100'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -140,7 +140,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
               </Link>
             )}
             {page === pageSize ? (
-              <span className='flex justify-center items-center h-8 w-9 cursor-not-allowed rouded-tl-sm rounded-bl-sm bg-white/60 shadow hover:bg-slate-100'>
+              <span className='rouded-tl-sm flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm bg-white/60 shadow hover:bg-slate-100'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -161,7 +161,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
                     page: (page + 1).toString()
                   }).toString()
                 }}
-                className='flex justify-center items-center h-8 w-9 rouded-tr-sm rounded-br-sm bg-white shadow hover:bg-slate-100'
+                className='rouded-tr-sm flex h-8 w-9 items-center justify-center rounded-br-sm bg-white shadow hover:bg-slate-100'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'

@@ -5,7 +5,6 @@ import { useForm, Controller } from 'react-hook-form'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
 import InputNumber from 'src/components/InputNumber'
-// import InputV2 from 'src/components/InputV2'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import RatingStar from 'src/pages/ProductList/components/RatingStar'
@@ -27,6 +26,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
     control,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<FormData>({
     defaultValues: {
@@ -50,6 +50,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
   })
 
   const handleReset = () => {
+    reset()
     navigate({
       pathname: path.home,
       search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'category', 'rating_filter'])).toString()
@@ -57,7 +58,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
   }
 
   return (
-    <div className='py-4'>
+    <div className='px-4 py-4 shadow-lg md:px-0 md:shadow-none'>
       <div className='flex items-center font-bold'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -77,7 +78,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
           Tất cả danh mục
         </span>
       </div>
-      <div className='bg-gray-300 h-[1px] my-4 w-full' />
+      <div className='my-4 h-[1px] w-full bg-gray-300' />
       <ul>
         {categories.map((categoryItem) => {
           const isActive = categoryItem._id === category
@@ -91,8 +92,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                     category: categoryItem._id
                   }).toString()
                 }}
-                className={clsx('flex items-center', {
-                  'text-orange font-semibold': isActive
+                className={clsx('flex items-center hover:text-orange', {
+                  'font-semibold text-orange': isActive
                 })}
               >
                 {isActive && (
@@ -113,7 +114,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
           )
         })}
       </ul>
-      <Link to={path.home} className='flex items-center font-bold mt-4 uppercase'>
+      <div className='mt-4 flex items-center font-bold uppercase'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -129,10 +130,10 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
           />
         </svg>
         <span className='ms-2 text-sm'>BỘ LỌC TÌM KIẾM</span>
-      </Link>
-      <div className='bg-gray-300 h-[1px] my-4 w-full' />
+      </div>
+      <div className='my-4 h-[1px] w-full bg-gray-300' />
       <div className='my-5'>
-        <div>Khoảng giá</div>
+        <div className='text-md'>Khoảng giá</div>
         <form className='mt-2' onSubmit={onSubmit}>
           <div className='flex items-start'>
             <Controller
@@ -154,18 +155,6 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                 )
               }}
             />
-            {/* <InputV2
-              control={control}
-              name='price_min'
-              type='number'
-              placeholder='TỪ'
-              className='flex-grow'
-              classNameError='hidden'
-              classNameInput='p-1 text-sm w-full outline-none border-2 border-gray-300 focus:shadow-sm focus:border-gray-500 rounded-sm'
-              onChange={() => {
-                trigger('price_max')
-              }}
-            /> */}
             <div className='mx-2 mt-2 shrink-0'>-</div>
             <Controller
               control={control}
@@ -188,15 +177,15 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               }}
             />
           </div>
-          <div className='mt-1 text-red-600 min-h-2 text-sm text-center'>{errors.price_min?.message}</div>
-          <Button className='w-full p-2 bg-orange text-white text-sm rounded-md'>ÁP DỤNG</Button>
+          <div className='mt-1 min-h-2 text-center text-sm text-red-600'>{errors.price_min?.message}</div>
+          <Button className='w-full rounded-md bg-orange p-2 text-sm text-white'>ÁP DỤNG</Button>
         </form>
       </div>
-      <div className='bg-gray-300 h-[1px] my-4 w-full' />
+      <div className='my-4 h-[1px] w-full bg-gray-300' />
       <div className='text-sm'>Đánh giá</div>
       <RatingStar queryConfig={queryConfig} />
-      <div className='bg-gray-300 h-[1px] my-4 w-full' />
-      <Button className='w-full p-2 bg-orange text-white text-sm rounded-md' onClick={handleReset}>
+      <div className='my-4 h-[1px] w-full bg-gray-300' />
+      <Button className='w-full rounded-md bg-orange p-2 text-sm text-white' onClick={handleReset}>
         XÓA TẤT CẢ
       </Button>
     </div>

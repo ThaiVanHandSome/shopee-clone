@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from 'src/constants/path'
-import { QueryConfig } from 'src/pages/ProductList/ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 interface Props {
   readonly pageSize: number
   readonly queryConfig: QueryConfig
@@ -16,7 +16,7 @@ export default function Paginate({ queryConfig, pageSize }: Props) {
     const renderDotBefore = () => {
       if (!dotBefore) {
         dotBefore = true
-        return <div className='bg-white rounded px-3 py-2 shadow-sm mx-2'>...</div>
+        return <div className='mx-2 rounded bg-white px-3 py-2 shadow-sm'>...</div>
       }
       return null
     }
@@ -24,7 +24,7 @@ export default function Paginate({ queryConfig, pageSize }: Props) {
     const renderDotAfter = () => {
       if (!dotAfter) {
         dotAfter = true
-        return <div className='bg-white rounded px-3 py-2 shadow-sm mx-2'>...</div>
+        return <div className='mx-2 rounded bg-white px-3 py-2 shadow-sm'>...</div>
       }
       return null
     }
@@ -53,8 +53,8 @@ export default function Paginate({ queryConfig, pageSize }: Props) {
               }).toString()
             }}
             key={pageNumber}
-            className={clsx('bg-white border-2 rounded px-3 py-2 shadow-sm mx-2 cursor-pointer', {
-              'border-cyan-500': pageNumber === page,
+            className={clsx('mx-2 cursor-pointer rounded border-2 bg-white px-3 py-2 shadow-sm', {
+              'border-orange': pageNumber === page,
               'border-transparent': pageNumber !== page
             })}
           >
@@ -64,8 +64,34 @@ export default function Paginate({ queryConfig, pageSize }: Props) {
       })
   }
 
+  const prevIcon = () => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='size-4'
+    >
+      <path strokeLinecap='round' strokeLinejoin='round' d='m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5' />
+    </svg>
+  )
+
+  const nextIcon = () => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='size-4'
+    >
+      <path strokeLinecap='round' strokeLinejoin='round' d='m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5' />
+    </svg>
+  )
+
   return (
-    <div className='flex flex-wrap mt-6 justify-center'>
+    <div className='mt-6 flex flex-wrap justify-center'>
       {page > 1 ? (
         <Link
           to={{
@@ -75,12 +101,14 @@ export default function Paginate({ queryConfig, pageSize }: Props) {
               page: (page - 1).toString()
             }).toString()
           }}
-          className={'bg-white border-2 rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'}
+          className={'mx-1 cursor-pointer rounded border-2 bg-white px-3 py-2 shadow-sm'}
         >
-          Prev
+          {prevIcon()}
         </Link>
       ) : (
-        <span className='bg-white/60 border-2 rounded px-3 py-2 shadow-sm mx-2 cursor-not-allowed'>Prev</span>
+        <span className='mx-2 flex cursor-not-allowed items-center justify-center rounded border-2 bg-white/60 px-3 py-2 text-sm shadow-sm'>
+          {prevIcon()}
+        </span>
       )}
 
       {renderPagination()}
@@ -93,12 +121,14 @@ export default function Paginate({ queryConfig, pageSize }: Props) {
               page: (page + 1).toString()
             }).toString()
           }}
-          className={'bg-white border-2 rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'}
+          className={'mx-2 cursor-pointer rounded border-2 bg-white px-3 py-2 shadow-sm'}
         >
-          Next
+          {nextIcon()}
         </Link>
       ) : (
-        <span className='bg-white/60 border-2 rounded px-3 py-2 shadow-sm mx-2 cursor-not-allowed'>Next</span>
+        <span className='mx-2 flex cursor-not-allowed items-center justify-center rounded border-2 bg-white/60 px-3 py-2 text-sm shadow-sm'>
+          {nextIcon()}
+        </span>
       )}
     </div>
   )

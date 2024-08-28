@@ -22,7 +22,7 @@ export default function ProductRating({
         .map((_, index) => (
           <div key={index} className='relative'>
             <div
-              className='absolute top-0 left-0 h-full overflow-hidden'
+              className='absolute left-0 top-0 h-full overflow-hidden'
               style={{
                 width: handleWidth(index + 1)
               }}

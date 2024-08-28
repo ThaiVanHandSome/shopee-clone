@@ -1,19 +1,20 @@
-import { Link } from 'react-router-dom'
+import clsx from 'clsx'
+import { useContext } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
+import { getAvatarUrl } from 'src/utils/utils'
 
 export default function UserSideNav() {
+  const { user } = useContext(AppContext)
   return (
     <div>
       <div className='flex items-center border-b border-b-gray-200 py-4'>
         <Link to={path.profile} className='h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border border-black/10'>
-          <img
-            src='https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
-            alt='avatar'
-            className='h-full w-full object-cover'
-          />
+          <img src={getAvatarUrl(user?.avatar)} alt='avatar' className='h-full w-full object-cover' />
         </Link>
         <div className='flex-grow pl-4'>
-          <div className='mb-1 truncate font-semibold text-gray-600'>nguyenthaivan</div>
+          <div className='mb-1 truncate font-semibold text-gray-600'>{user?.name}</div>
           <Link to={path.profile} className='flex items-center capitalize text-gray-500'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -34,7 +35,15 @@ export default function UserSideNav() {
         </div>
       </div>
       <div className='mt-7'>
-        <Link to={path.profile} className='flex items-center capitalize text-orange transition-colors'>
+        <NavLink
+          to={path.profile}
+          className={({ isActive }) =>
+            clsx('flex items-center capitalize transition-colors', {
+              'text-orange': isActive,
+              'text-gray-600': !isActive
+            })
+          }
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -50,10 +59,18 @@ export default function UserSideNav() {
             />
           </svg>
           <span className='ml-1 font-semibold'>Hồ Sơ Của Tôi</span>
-        </Link>
+        </NavLink>
       </div>
       <div className='mt-4'>
-        <Link to={path.changePassword} className='flex items-center capitalize text-orange transition-colors'>
+        <NavLink
+          to={path.changePassword}
+          className={({ isActive }) =>
+            clsx('flex items-center capitalize transition-colors', {
+              'text-orange': isActive,
+              'text-gray-600': !isActive
+            })
+          }
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -70,10 +87,18 @@ export default function UserSideNav() {
           </svg>
 
           <span className='ml-1 font-semibold'>Thay đổi mật khẩu</span>
-        </Link>
+        </NavLink>
       </div>
       <div className='mt-4'>
-        <Link to={path.historyPurchase} className='flex items-center capitalize text-orange transition-colors'>
+        <NavLink
+          to={path.historyPurchase}
+          className={({ isActive }) =>
+            clsx('flex items-center capitalize transition-colors', {
+              'text-orange': isActive,
+              'text-gray-600': !isActive
+            })
+          }
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -90,7 +115,7 @@ export default function UserSideNav() {
           </svg>
 
           <span className='ml-1 font-semibold'>Đơn Mua</span>
-        </Link>
+        </NavLink>
       </div>
     </div>
   )

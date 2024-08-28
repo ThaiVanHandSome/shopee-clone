@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import Popover from 'src/components/Popover'
 import path from 'src/constants/path'
@@ -10,11 +10,13 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import NavHeader from 'src/components/NavHeader'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 import noproduct from 'src/assets/images/no-product.png'
+import NavBar from 'src/components/Header/components/NavBar'
 
 export default function Header() {
   const navigate = useNavigate()
   const { isAuthenticated } = useContext(AppContext)
   const { onSubmitSearch, register } = useSearchProducts()
+  const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false)
 
   const { data: cartData } = useQuery({
     queryKey: ['purchases', { status: purchaseStatus.inCart }],
@@ -44,7 +46,38 @@ export default function Header() {
               </g>
             </svg>
           </Link>
-          <form className='col-span-9' onSubmit={onSubmitSearch}>
+
+          {/* show on mobile */}
+          <div
+            aria-hidden='true'
+            className='col-span-10 flex cursor-pointer justify-end md:hidden'
+            onClick={() => setOpenMobileMenu(true)}
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='size-6'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5'
+              />
+            </svg>
+          </div>
+          {openMobileMenu && (
+            <div
+              aria-hidden='true'
+              className='bg-black-layer fixed bottom-0 left-0 right-0 top-0 z-30'
+              onClick={() => setOpenMobileMenu(false)}
+            />
+          )}
+          <NavBar isOpen={openMobileMenu} setIsOpen={setOpenMobileMenu} />
+
+          <form className='col-span-9 hidden md:block' onSubmit={onSubmitSearch}>
             <div className='flex rounded-sm bg-white p-1'>
               <input
                 {...register('search')}
@@ -75,7 +108,7 @@ export default function Header() {
             </div>
           </form>
           <Popover
-            className='col-span-1 flex h-full items-center justify-center'
+            className='col-span-1 hidden h-full items-center justify-center md:flex'
             placement='bottom-end'
             renderPopover={
               <div className='max-w-[400px] text-sm'>

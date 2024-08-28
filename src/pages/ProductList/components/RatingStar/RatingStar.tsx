@@ -1,6 +1,6 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { QueryConfig } from 'src/pages/ProductList/ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   readonly queryConfig: QueryConfig
@@ -24,11 +24,11 @@ export default function RatingStar({ queryConfig }: Props) {
       {Array(5)
         .fill(1)
         .map((_, index) => (
-          <li key={index} className='py-1 pl-2'>
+          <li key={index} className='py-1 pr-2'>
             <div
               aria-hidden='true'
               onClick={() => handleSortByRating(5 - index)}
-              className='flex items-center cursor-pointer'
+              className='flex cursor-pointer items-center'
             >
               <div className='flex items-center text-sm'>
                 {Array(5)
@@ -36,7 +36,7 @@ export default function RatingStar({ queryConfig }: Props) {
                   .map((_, childIndex) => {
                     if (childIndex < 5 - index) {
                       return (
-                        <svg key={childIndex} viewBox='0 0 9.5 8' className='w-4 h-4 me-1'>
+                        <svg key={childIndex} viewBox='0 0 9.5 8' className='me-1 h-4 w-4'>
                           <defs>
                             <linearGradient id='ratingStarGradient' x1='50%' x2='50%' y1='0%' y2='100%'>
                               <stop offset={0} stopColor='#ffca11' />
@@ -64,7 +64,7 @@ export default function RatingStar({ queryConfig }: Props) {
                       )
                     }
                     return (
-                      <svg key={childIndex} viewBox='0 0 30 30' className='w-4 h-4 me-1'>
+                      <svg key={childIndex} viewBox='0 0 30 30' className='me-1 h-4 w-4'>
                         <defs>
                           <linearGradient id='star__hollow' x1='50%' x2='50%' y1='0%' y2='99.0177926%'>
                             <stop offset='0%' stopColor='#FFD211' />

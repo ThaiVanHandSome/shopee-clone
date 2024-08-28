@@ -8,12 +8,12 @@ export default function Button(props: Props) {
   const { className, isLoading, disabled, children, ...rest } = props
   const newClassName = disabled ? className + 'cursor-not-allow' : className
   return (
-    <button className={newClassName + 'flex items-center justify-center'} disabled={disabled} {...rest}>
+    <button className={newClassName + ' flex items-center justify-center'} disabled={disabled} {...rest}>
       {isLoading && (
         <svg
           aria-hidden='true'
           role='status'
-          className='inline w-4 h-4 me-3 text-white animate-spin'
+          className='me-3 inline h-4 w-4 animate-spin text-white'
           viewBox='0 0 100 101'
           fill='white'
           xmlns='http://www.w3.org/2000/svg'

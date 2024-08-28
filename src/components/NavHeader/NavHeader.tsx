@@ -6,11 +6,11 @@ import Popover from 'src/components/Popover'
 import path from 'src/constants/path'
 import { purchaseStatus } from 'src/constants/purchase'
 import { AppContext } from 'src/contexts/app.context'
+import { getAvatarUrl } from 'src/utils/utils'
 
 export default function NavHeader() {
-  const { user: profile } = useContext(AppContext)
   const queryClient = useQueryClient()
-  const { isAuthenticated, setIsAuthenticated, user, setUser } = useContext(AppContext)
+  const { isAuthenticated, setIsAuthenticated, user: profile, setUser } = useContext(AppContext)
   const logoutMutation = useMutation({
     mutationFn: logout,
     onSuccess: () => {
@@ -26,7 +26,7 @@ export default function NavHeader() {
   }
 
   return (
-    <div className='flex justify-end'>
+    <div className='hidden justify-end md:flex'>
       <Popover
         className='me-4 flex cursor-pointer items-center py-1 hover:text-gray-300'
         renderPopover={
@@ -89,16 +89,9 @@ export default function NavHeader() {
           }
         >
           <div className='mr-2 h-6 w-6 flex-shrink-0'>
-            <img
-              className='h-full w-full rounded-full object-cover'
-              src={
-                profile?.avatar ??
-                'https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg'
-              }
-              alt='avatar'
-            />
+            <img className='h-full w-full rounded-full object-cover' src={getAvatarUrl(profile?.avatar)} alt='avatar' />
           </div>
-          <div className='text-sm'>{user?.email}</div>
+          <div className='text-sm'>{profile?.email}</div>
         </Popover>
       )}
       {!isAuthenticated && (
