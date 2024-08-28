@@ -221,7 +221,7 @@ export default function ProductDetail() {
               <div className='mt-8 flex flex-col justify-start bg-gray-50 px-5 py-4 md:flex-row md:items-center'>
                 <div className='text-gray-500 line-through'>đ{formatCurrency(product.price_before_discount)}</div>
                 <div className='ml-0 text-3xl font-medium text-orange md:ml-3'>đ{formatCurrency(product.price)}</div>
-                <div className='ml-0 w-1/3 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white md:ml-4'>
+                <div className='ml-0 w-1/3 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white md:ml-4 md:w-auto'>
                   {rateSale(product.price_before_discount, product.price)} giảm
                 </div>
               </div>
@@ -237,7 +237,7 @@ export default function ProductDetail() {
                 />
                 <div className='text-sm text-gray-500 md:ml-6'>{product.quantity} sản phẩm có sẵn</div>
               </div>
-              <div className='mt-8 flex flex-col items-center'>
+              <div className='mt-8 flex flex-col items-center md:flex-row'>
                 <button
                   onClick={handleAddToCart}
                   className='mb-2 flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5 md:mb-0'
