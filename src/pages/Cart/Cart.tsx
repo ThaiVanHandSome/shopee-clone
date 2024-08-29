@@ -13,10 +13,12 @@ import { keyBy } from 'lodash'
 import { toast } from 'react-toastify'
 import { AppContext } from 'src/contexts/app.context'
 import noproduct from 'src/assets/images/no-product.png'
+import { useTranslation } from 'react-i18next'
 
 enableMapSet()
 
 export default function Cart() {
+  const { t } = useTranslation(['cart', 'product'])
   const location = useLocation()
   const cartId = (location.state as { cartId: string } | null)?.cartId
   const { extendedCart, setExtendedCart } = useContext(AppContext)
@@ -166,15 +168,15 @@ export default function Cart() {
                           onChange={handleCheckAll}
                         />
                       </div>
-                      <div className='flex-grow text-black'>Sản phẩm</div>
+                      <div className='flex-grow text-black'>{t('cart:product')}</div>
                     </div>
                   </div>
                   <div className='col-span-6'>
                     <div className='grid grid-cols-5 text-center'>
-                      <div className='col-span-2'>Đơn giá</div>
-                      <div className='col-span-1'>Số lượng</div>
-                      <div className='col-span-1'>Số tiền</div>
-                      <div className='col-span-1'>Thao tác</div>
+                      <div className='col-span-2'>{t('cart:price')}</div>
+                      <div className='col-span-1'>{t('cart:quantity')}</div>
+                      <div className='col-span-1'>{t('cart:totalPrice')}</div>
+                      <div className='col-span-1'>{t('cart:operation')}</div>
                     </div>
                   </div>
                 </div>
@@ -286,7 +288,9 @@ export default function Cart() {
                     onChange={handleCheckAll}
                   />
                 </div>
-                <button className='mx-3 border-none bg-none'>Chọn tất cả ({extendedCart.length})</button>
+                <button className='mx-3 border-none bg-none'>
+                  {t('cart:selectAll')} ({extendedCart.length})
+                </button>
                 <button onClick={handleDeleteManyProducts} className='mx-3 border-none bg-none'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -307,11 +311,13 @@ export default function Cart() {
               <div className='mt-5 flex flex-col items-center justify-center sm:ml-auto sm:mt-0 sm:flex-row'>
                 <div>
                   <div className='flex items-center justify-end'>
-                    <div>Tổng thanh toán ({checkedCartsCount} sản phẩm): </div>
+                    <div>
+                      {t('cart:payment')} ({checkedCartsCount} {t('cart:product')}):{' '}
+                    </div>
                     <div className='ml-2 text-2xl text-orange'>đ{formatCurrency(totalCheckedPrice)}</div>
                   </div>
                   <div className='flex items-center justify-end text-sm'>
-                    <div className='text-gray-500'>Tiết kiệm</div>
+                    <div className='text-gray-500'>{t('cart:save')}</div>
                     <div className='ml-6 text-orange'>đ{formatCurrency(totalCheckedSavingPrice)}</div>
                   </div>
                 </div>
@@ -321,7 +327,7 @@ export default function Cart() {
                   disabled={buyProductsMutation.isPending}
                   className='ml-4 mt-4 h-10 w-52 bg-red-500 text-center text-sm uppercase text-white hover:bg-red-600 sm:mt-0'
                 >
-                  Mua hàng
+                  {t('cart:purchase')}
                 </Button>
               </div>
             </div>
@@ -330,9 +336,9 @@ export default function Cart() {
         {extendedCart.length === 0 && (
           <div className='text-center'>
             <img src={noproduct} alt='no purchase' className='mx-auto h-24 w-24' />
-            <div className='mt-5 font-bold text-gray-600'>Giỏ hàng của bạn còn trống</div>
+            <div className='mt-5 font-bold text-gray-600'>{t('cart:empty')}</div>
             <Link to={path.home} className='mt-5 inline-block bg-orange px-6 py-2 uppercase text-white'>
-              Mua ngay
+              {t('product:buyNow')}
             </Link>
           </div>
         )}

@@ -1,0 +1,16 @@
+{
+  "empty": "Your cart is empty",
+  "newProduct": "New products added",
+  "addToCart": "Add to cart",
+  "viewCart": "View cart",
+  "product": "Product",
+  "price": "Price",
+  "quantity": "Quantity",
+  "totalPrice": "Total price",
+  "operation": "Operation",
+  "selectAll": "Select all",
+  "payment": "Payment",
+  "save": "Save",
+  "purchase": "Purchase",
+  "cart": "Cart"
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import NavBar from 'src/components/Header/components/NavBar'
 import NavHeader from 'src/components/NavHeader'
@@ -6,6 +7,7 @@ import path from 'src/constants/path'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 
 export default function CartHeader() {
+  const { t } = useTranslation(['cart', 'header'])
   const { onSubmitSearch, register } = useSearchProducts()
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false)
   return (
@@ -27,7 +29,7 @@ export default function CartHeader() {
                 </svg>
               </div>
               <div className='mx-4 h-8 w-[1px] bg-orange'></div>
-              <div className='capitalize text-orange lg:text-xl'>Giỏ hàng</div>
+              <div className='capitalize text-orange lg:text-xl'>{t('cart:cart')}</div>
             </Link>
             <form className='mt-3 hidden md:mt-0 md:block md:w-[50%]' onSubmit={onSubmitSearch}>
               <div className='flex rounded-md border-2 border-orange'>
@@ -35,7 +37,7 @@ export default function CartHeader() {
                   {...register('search')}
                   name='search'
                   type='text'
-                  placeholder='FREESHIP ĐƠN TỪ 0Đ'
+                  placeholder={t('header:inputPlaceholder')}
                   className='w-full flex-grow border-none bg-transparent px-3 py-1 text-sm text-black outline-none'
                 />
                 <button
@@ -84,7 +86,7 @@ export default function CartHeader() {
             {openMobileMenu && (
               <div
                 aria-hidden='true'
-                className='bg-black-layer fixed bottom-0 left-0 right-0 top-0 z-30'
+                className='fixed bottom-0 left-0 right-0 top-0 z-30 bg-black-layer'
                 onClick={() => setOpenMobileMenu(false)}
               />
             )}

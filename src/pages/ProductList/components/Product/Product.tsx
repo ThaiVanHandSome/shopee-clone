@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import ProductRating from 'src/components/ProductRating'
 import path from 'src/constants/path'
@@ -12,6 +13,7 @@ interface Props {
 let idInterval: any
 let indexImage = 0
 export default function Product({ product }: Props) {
+  const { t } = useTranslation(['product'])
   const [imageProduct, setImageProduct] = useState<string>(product.image)
   const handleChangeImage = () => {
     idInterval = setInterval(() => {
@@ -61,7 +63,7 @@ export default function Product({ product }: Props) {
           <div className='mt-3 flex items-center justify-between'>
             <ProductRating rating={product.rating} />
             <div className='ml-2 text-xs'>
-              <span className='me-1'>Đã bán</span>
+              <span className='me-1'>{t('product:sold')}</span>
               <span>{formatNumberToSocialStyle(product.sold)}</span>
             </div>
           </div>

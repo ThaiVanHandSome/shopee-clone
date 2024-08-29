@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { getAvatarUrl } from 'src/utils/utils'
 
 export default function UserSideNav() {
+  const { t } = useTranslation(['user'])
   const { user } = useContext(AppContext)
   return (
     <div>
@@ -30,7 +32,7 @@ export default function UserSideNav() {
                 d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10'
               />
             </svg>
-            <span className='ml-1'>Sửa hồ sơ</span>
+            <span className='ml-1'>{t('user:editProfile')}</span>
           </Link>
         </div>
       </div>
@@ -58,7 +60,7 @@ export default function UserSideNav() {
               d='M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
             />
           </svg>
-          <span className='ml-1 font-semibold'>Hồ Sơ Của Tôi</span>
+          <span className='ml-1 font-semibold'>{t('user:profile')}</span>
         </NavLink>
       </div>
       <div className='mt-4'>
@@ -86,7 +88,7 @@ export default function UserSideNav() {
             />
           </svg>
 
-          <span className='ml-1 font-semibold'>Thay đổi mật khẩu</span>
+          <span className='ml-1 font-semibold'>{t('user:changePassword')}</span>
         </NavLink>
       </div>
       <div className='mt-4'>
@@ -114,7 +116,7 @@ export default function UserSideNav() {
             />
           </svg>
 
-          <span className='ml-1 font-semibold'>Đơn Mua</span>
+          <span className='ml-1 font-semibold'>{t('user:purchase')}</span>
         </NavLink>
       </div>
     </div>

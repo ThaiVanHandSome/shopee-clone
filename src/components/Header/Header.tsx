@@ -11,8 +11,10 @@ import NavHeader from 'src/components/NavHeader'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 import noproduct from 'src/assets/images/no-product.png'
 import NavBar from 'src/components/Header/components/NavBar'
+import { useTranslation } from 'react-i18next'
 
 export default function Header() {
+  const { t } = useTranslation(['header', 'cart'])
   const navigate = useNavigate()
   const { isAuthenticated } = useContext(AppContext)
   const { onSubmitSearch, register } = useSearchProducts()
@@ -71,7 +73,7 @@ export default function Header() {
           {openMobileMenu && (
             <div
               aria-hidden='true'
-              className='bg-black-layer fixed bottom-0 left-0 right-0 top-0 z-30'
+              className='fixed bottom-0 left-0 right-0 top-0 z-30 bg-black-layer'
               onClick={() => setOpenMobileMenu(false)}
             />
           )}
@@ -83,7 +85,7 @@ export default function Header() {
                 {...register('search')}
                 name='search'
                 type='text'
-                placeholder='FREESHIP ĐƠN TỪ 0Đ'
+                placeholder={t('header:inputPlaceholder')}
                 className='flex-grow border-none bg-transparent px-3 py-2 text-sm text-black outline-none'
               />
               <button
@@ -116,12 +118,12 @@ export default function Header() {
                   {(cart?.length === 0 || !cart) && (
                     <div className='flex h-[300px] w-[300px] flex-col items-center justify-center p-2'>
                       <img src={noproduct} alt='no purchase' className='h-24 w-24' />
-                      <div className='mt-3 capitalize'>Chưa có sản phẩm</div>
+                      <div className='mt-3 capitalize'>{t('cart:empty')}</div>
                     </div>
                   )}
                   {cart && cart?.length !== 0 && (
                     <>
-                      <div className='capitalize text-gray-400'>Sản phẩm mới thêm</div>
+                      <div className='capitalize text-gray-400'>{t('cart:newProduct')}</div>
                       <div className='mt-5'>
                         {cart?.slice(0, 5).map((item) => (
                           <div
@@ -148,13 +150,13 @@ export default function Header() {
                       </div>
                       <div className='mt-6 flex items-center justify-between'>
                         <div className='text-xs capitalize text-gray-500'>
-                          {Math.max(0, (cart?.length as number) - 5)} Thêm hàng vào giỏ
+                          {Math.max(0, (cart?.length as number) - 5)} {t('cart:addToCart')}
                         </div>
                         <Link
                           to={path.cart}
                           className='rounded-sm bg-orange bg-opacity-90 px-4 py-2 capitalize text-white'
                         >
-                          Xem giỏ hàng
+                          {t('cart:viewCart')}
                         </Link>
                       </div>
                     </>

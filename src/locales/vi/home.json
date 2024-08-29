@@ -1,0 +1,22 @@
+{
+  "asideFilter": {
+    "allCategories": "Tất cả danh mục",
+    "filter": "Bộ lọc tìm kiếm",
+    "price": "Khoảng giá",
+    "priceMin": "TỪ",
+    "priceMax": "ĐẾN",
+    "apply": "Áp dụng",
+    "ratingStar": "trở lên",
+    "rating": "Đánh giá",
+    "clearAll": "Xóa tất cả"
+  },
+  "sortProduct": {
+    "sortBy": "Sắp xếp theo",
+    "polular": "Phổ biến",
+    "latest": "Mới nhất",
+    "bestSeller": "Bán chạy",
+    "price": "Giá",
+    "increase": "Giá: thấp đến cao",
+    "decrease": "Giá: cao đến thấp"
+  }
+}

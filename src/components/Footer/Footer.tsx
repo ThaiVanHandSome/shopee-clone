@@ -1,29 +1,24 @@
+import { useTranslation } from 'react-i18next'
+
 export default function Footer() {
+  const { t } = useTranslation(['footer'])
   return (
     <footer className='bg-neutral-100 py-16'>
       <div className='mx-auto max-w-7xl px-4'>
         <div className='grid grid-cols-1 gap-4 text-center lg:grid-cols-3'>
           <div className='lg:col-span-1'>
-            <div>© 2024 Shopee. Tất cả các quyền được bảo lưu.</div>
+            <div>{t('footer:text1')}</div>
           </div>
           <div className='lg:col-span-2'>
-            <div>
-              Quốc gia & Khu vực: Singapore Indonesia Thái Lan Malaysia Việt Nam Philippines Brazil México Colombia
-              Chile Đài Loan
-            </div>
+            <div>{t('footer:text2')}</div>
           </div>
         </div>
         <div className='mt-10 text-center text-sm'>
-          <div>Công ty TNHH Shopee</div>
-          <div className='mt-2'>
-            Địa chỉ: Tầng 4-5-6, Tòa nhà Capital Place, số 29 đường Liễu Giai, Phường Ngọc Khánh, Quận Ba Đình, Thành
-            phố Hà Nội, Việt Nam. Tổng đài hỗ trợ: 19001221 - Email: cskh@hotro.shopee.vn
-          </div>
-          <div className='mt-2'>Chịu Trách Nhiệm Quản Lý Nội Dung: Nguyễn Bùi Anh Tuấn</div>
-          <div className='mt-2'>
-            Mã số doanh nghiệp: 0106773786 do Sở Kế hoạch & Đầu tư TP Hà Nội cấp lần đầu ngày 10/02/2015
-          </div>
-          <div className='mt-2'>© 2015 - Bản quyền thuộc về Công ty TNHH Shopee</div>
+          <div>{t('footer:name')}</div>
+          <div className='mt-2'>{t('footer:address')}</div>
+          <div className='mt-2'>{t('desc')}</div>
+          <div className='mt-2'>{t('footer:id')}</div>
+          <div className='mt-2'>{t('footer:text3')}</div>
         </div>
       </div>
     </footer>

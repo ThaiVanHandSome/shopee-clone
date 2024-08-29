@@ -1,0 +1,16 @@
+{
+  "empty": "Giỏ hàng của bạn còn trống",
+  "newProduct": "Sản phẩm mới thêm",
+  "addToCart": "Thêm Hàng vào giỏ",
+  "viewCart": "Xem giỏ hàng",
+  "product": "Sản phẩm",
+  "price": "Đơn giá",
+  "quantity": "Số lượng",
+  "totalPrice": "Số tiền",
+  "operation": "Thao tác",
+  "selectAll": "Chọn tất cả",
+  "payment": "Tổng thanh toán",
+  "save": "Tiết kiệm",
+  "purchase": "Mua hàng",
+  "cart": "Giỏ hàng"
+}

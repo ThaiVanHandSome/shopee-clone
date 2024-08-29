@@ -13,10 +13,12 @@ import { AppContext } from 'src/contexts/app.context'
 import { setUserToLocalStorage } from 'src/utils/auth'
 import path from 'src/constants/path'
 import { ErrorResponse } from 'src/types/utils.type'
+import { useTranslation } from 'react-i18next'
 
 type FormData = yup.InferType<typeof loginSchema>
 
 export default function Login() {
+  const { t } = useTranslation(['auth'])
   const { setIsAuthenticated, setUser } = useContext(AppContext)
   const navigate = useNavigate()
   const {
@@ -63,7 +65,7 @@ export default function Login() {
         <div className='grid grid-cols-1 py-10 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit}>
-              <div className='text-2xl'>Đăng Nhập</div>
+              <div className='text-2xl'>{t('auth:login')}</div>
               <Input
                 type='email'
                 name='email'
@@ -81,9 +83,9 @@ export default function Login() {
                 className='mt-3'
               />
               <div className='mt-4 flex items-center text-center'>
-                <span className='me-2 text-gray-400'>Bạn chưa có tài khoản?</span>
+                <span className='me-2 text-gray-400'>{t('auth:doNotHaveAccount')}</span>
                 <Link to={path.register} className='text-red-400'>
-                  Đăng ký
+                  {t('auth:register')}
                 </Link>
               </div>
               <div className='mt-3'>
@@ -93,7 +95,7 @@ export default function Login() {
                   type='submit'
                   className='w-full bg-red-500 px-2 py-4 text-center text-sm uppercase text-white hover:bg-red-600'
                 >
-                  Đăng nhập
+                  {t('auth:login')}
                 </Button>
               </div>
             </form>

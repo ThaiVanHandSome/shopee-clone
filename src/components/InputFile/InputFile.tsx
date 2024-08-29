@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import config from 'src/constants/config'
 
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function InputFile({ onChange }: Props) {
+  const { t } = useTranslation(['user'])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleChooseImage = () => {
@@ -37,10 +39,10 @@ export default function InputFile({ onChange }: Props) {
       />
       <button
         type='button'
-        className='h-10 flex-shrink-0 rounded-sm border border-transparent bg-white px-6 text-sm text-gray-600 shadow-sm hover:border-orange'
+        className='h-10 flex-shrink-0 rounded-sm border border-transparent bg-white px-6 text-sm capitalize text-gray-600 shadow-sm hover:border-orange'
         onClick={handleChooseImage}
       >
-        Chọn Ảnh
+        {t('user:chooseImage')}
       </button>
     </>
   )

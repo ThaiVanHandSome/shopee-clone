@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { getProfile, updateProfile, uploadAvatar } from 'src/apis/user.api'
 import Button from 'src/components/Button'
@@ -25,6 +26,7 @@ type FormDataError = Omit<FormData, 'date_of_birth'> & {
 const profileSchema = userSchema.pick(['name', 'address', 'phone', 'date_of_birth', 'avatar'])
 
 export default function Profile() {
+  const { t } = useTranslation(['user'])
   const [file, setFile] = useState<File>()
   const previewImage = useMemo(() => {
     return file ? URL.createObjectURL(file) : ''
@@ -93,7 +95,6 @@ export default function Profile() {
           onSuccess: (res) => {
             toast.success(res.data.message)
             const userData = res.data.data
-            console.log(userData)
             setUser(userData)
             setUserToLocalStorage(userData)
             refetch()
@@ -122,8 +123,8 @@ export default function Profile() {
   return (
     <div className='rounded-sm bg-white px-7 pb-20 shadow'>
       <div className='border-b border-b-gray-200 py-6'>
-        <h1 className='text-lg font-medium capitalize text-gray-900'>Hồ Sơ Của Tôi</h1>
-        <div className='mt-1 text-sm text-gray-700'>Quản lý thông tin hồ sở để bảo mật tài khoản</div>
+        <h1 className='text-lg font-medium capitalize text-gray-900'>{t('user:profile')}</h1>
+        <div className='mt-1 text-sm text-gray-700'>{t('user:subHeading')}</div>
       </div>
       <form className='mt-8 flex flex-col-reverse md:flex-row md:items-start' onSubmit={onSubmit}>
         <div className='mt-6 flex-grow pr-12 md:mt-0'>
@@ -134,26 +135,26 @@ export default function Profile() {
             </div>
           </div>
           <div className='mt-6 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Tên</div>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:name')}</div>
             <div className='w-[80%] pl-5'>
               <Input
                 register={register}
                 name='name'
-                placeholder='Tên'
+                placeholder={t('user:name')}
                 errorMessage={errors.name?.message}
                 classNameInput='px-3 py-2 w-full outline-none border-2 border-gray-300 focus:border-gray-500 rounded shadow-sm'
               />
             </div>
           </div>
           <div className='mt-2 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Số điện thoại</div>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:phoneNumber')}</div>
             <div className='w-[80%] pl-5'>
               <Controller
                 control={control}
                 name='phone'
                 render={({ field }) => (
                   <InputNumber
-                    placeholder='Số điện thoại'
+                    placeholder={t('user:phoneNumber')}
                     errorMessage={errors.phone?.message}
                     {...field}
                     classNameInput='px-3 py-2 w-full outline-none border-2 border-gray-300 focus:border-gray-500 rounded shadow-sm'
@@ -164,12 +165,12 @@ export default function Profile() {
             </div>
           </div>
           <div className='mt-2 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Địa chỉ</div>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:address')}</div>
             <div className='w-[80%] pl-5'>
               <Input
                 register={register}
                 name='address'
-                placeholder='Địa chỉ'
+                placeholder={t('user:address')}
                 errorMessage={errors.address?.message}
                 classNameInput='px-3 py-2 w-full outline-none border-2 border-gray-300 focus:border-gray-500 rounded shadow-sm'
               />
@@ -191,7 +192,7 @@ export default function Profile() {
                 disabled={updateProfileMutation.isPending || uploadAvatarMutation.isPending}
                 className='flex h-9 w-36 items-center bg-orange px-6 text-center text-sm text-white hover:bg-orange/80'
               >
-                Lưu
+                {t('user:save')}
               </Button>
             </div>
           </div>
@@ -202,8 +203,8 @@ export default function Profile() {
           </div>
           <InputFile onChange={handleChangeFile} />
           <div className='mt-3 text-gray-400'>
-            <p>Dụng lượng file tối đa 1 MB</p>
-            <p>Định dạng:.JPEG, .PNG</p>
+            <p>{t('user:imageSize')}</p>
+            <p>{t('user:imageType')}</p>
           </div>
         </div>
       </form>

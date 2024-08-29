@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function RatingStar({ queryConfig }: Props) {
+  const { t } = useTranslation(['home'])
   const navigate = useNavigate()
 
   const handleSortByRating = (rating: number) => {
@@ -82,7 +84,7 @@ export default function RatingStar({ queryConfig }: Props) {
                     )
                   })}
               </div>
-              {index > 0 && <span className='ms-2 text-sm'>trở lên</span>}
+              {index > 0 && <span className='ms-2 text-sm'>{t('asideFilter.ratingStar')}</span>}
             </div>
           </li>
         ))}

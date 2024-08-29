@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { range } from 'lodash'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   readonly onChange?: (value: Date) => void
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function DateSelect({ value, onChange, errorMessage }: Props) {
+  const { t } = useTranslation(['user'])
   const [date, setDate] = useState({
     day: value?.getDate() ?? 1,
     month: value?.getMonth() ?? 0,
@@ -37,7 +39,7 @@ export default function DateSelect({ value, onChange, errorMessage }: Props) {
 
   return (
     <div className='mt-2 flex flex-wrap'>
-      <div className='w-[20%] truncate pt-3 text-right capitalize'>Ngày sinh</div>
+      <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:dayOfBirth')}</div>
       <div className='w-[80%] pl-5'>
         <div className='flex'>
           <div className='w-1/3 px-3'>
