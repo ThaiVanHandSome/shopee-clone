@@ -78,7 +78,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             })}
             onClick={() => handleSort(sortBy.sold)}
           >
-            {t('home:sortProduct.latest')}
+            {t('home:sortProduct.bestSeller')}
           </button>
           <select
             value={order ?? ''}
