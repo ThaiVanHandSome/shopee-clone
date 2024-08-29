@@ -46,15 +46,12 @@ export const resources = {
   }
 }
 
-export const defaultNs = 'home'
-
 const language = localStorage.getItem('language') ?? 'vi'
 
 i18n.use(initReactI18next).init({
   resources,
   lng: language,
   ns: ['home', 'product'],
-  defaultNs,
   fallbackLng: language,
   interpolation: {
     escapeValue: false

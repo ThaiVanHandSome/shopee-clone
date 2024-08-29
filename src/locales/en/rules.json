@@ -33,5 +33,8 @@
   },
   "dateOfBirth": {
     "notCorrect": "Please select a date in the past"
+  },
+  "file": {
+    "notCorrect": "File is not in the specified format"
   }
 }

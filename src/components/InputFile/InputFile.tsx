@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function InputFile({ onChange }: Props) {
-  const { t } = useTranslation(['user'])
+  const { t } = useTranslation(['user', 'rules'])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleChooseImage = () => {
@@ -18,7 +18,7 @@ export default function InputFile({ onChange }: Props) {
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFromLocal = event.target.files?.[0]
     if (fileFromLocal && (fileFromLocal?.size >= config.maxSizeUploadAvatar || !fileFromLocal.type.includes('image'))) {
-      toast.error('File không đúng định dạng đã quy định')
+      toast.error(t('rules:file:notCorrect') as string)
       return
     }
     onChange && onChange(fileFromLocal)
