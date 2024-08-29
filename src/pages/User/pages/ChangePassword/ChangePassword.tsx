@@ -64,8 +64,8 @@ export default function ChangePassword() {
       <form className='mt-8 flex flex-col' onSubmit={onSubmit}>
         <div className='mt-6 flex-grow pr-12 md:mt-0'>
           <div className='mt-6 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Mật khẩu cũ</div>
-            <div className='w-[80%] pl-5'>
+            <div className='w-full truncate pt-3 text-right capitalize md:w-[20%]'>Mật khẩu cũ</div>
+            <div className='w-full pl-5 md:w-[80%]'>
               <Input
                 type='password'
                 register={register}
@@ -80,8 +80,8 @@ export default function ChangePassword() {
         </div>
         <div className='mt-6 flex-grow pr-12 md:mt-0'>
           <div className='mt-6 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Mật khẩu mới</div>
-            <div className='w-[80%] pl-5'>
+            <div className='w-full truncate pt-3 text-right capitalize md:w-[20%]'>Mật khẩu mới</div>
+            <div className='w-full pl-5 md:w-[80%]'>
               <Input
                 type='password'
                 register={register}
@@ -96,8 +96,8 @@ export default function ChangePassword() {
         </div>
         <div className='mt-6 flex-grow pr-12 md:mt-0'>
           <div className='mt-6 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Nhập lại mật khẩu</div>
-            <div className='w-[80%] pl-5'>
+            <div className='w-full truncate pt-3 text-right capitalize md:w-[20%]'>Nhập lại mật khẩu</div>
+            <div className='w-full pl-5 md:w-[80%]'>
               <Input
                 type='password'
                 register={register}
