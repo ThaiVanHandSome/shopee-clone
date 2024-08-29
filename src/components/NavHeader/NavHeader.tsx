@@ -31,7 +31,7 @@ export default function NavHeader() {
 
   const changeLanguage = (lng: 'en' | 'vi') => {
     localStorage.setItem('language', lng)
-    i18n.changeLanguage(lng)
+    window.history.go(0)
   }
 
   return (

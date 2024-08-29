@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useContext, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { logout } from 'src/apis/auth.api'
 import { getPurchases } from 'src/apis/purchase.api'
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function NavBar({ isOpen, setIsOpen }: Props) {
+  const { t } = useTranslation(['header'])
   const queryClient = useQueryClient()
   const elementRef = useRef<HTMLDivElement>(null)
   const { onSubmitSearch, register } = useSearchProducts()

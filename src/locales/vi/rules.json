@@ -1,0 +1,37 @@
+{
+  "email": {
+    "required": "Email là bắt buộc",
+    "email": "Email không đúng định dạng",
+    "length": "Độ dài từ 5 - 160 kí tự"
+  },
+  "password": {
+    "required": "Password là bắt buộc",
+    "length": "Độ dài từ 6 - 160 kí tự"
+  },
+  "confirmPassword": {
+    "required": "Confirm password là bắt buộc",
+    "length": "Độ dài từ 6 - 160 kí tự",
+    "notMatch": "Nhập lại password không khớp"
+  },
+  "search": {
+    "required": "Tên sản phẩm là bắt buộc"
+  },
+  "priceFilter": {
+    "notCorrect": "Giá không phù hợp"
+  },
+  "name": {
+    "length": "Độ dài tối đa là 160 ký tự"
+  },
+  "phone": {
+    "length": "Độ dài tối đa là 20 ký tự"
+  },
+  "address": {
+    "length": "Độ dài tối đa là 160 ký tự"
+  },
+  "avatar": {
+    "length": "Độ dài tối đa là 1000 ký tự"
+  },
+  "dateOfBirth": {
+    "notCorrect": "Hãy chọn một ngày trong quá khứ"
+  }
+}

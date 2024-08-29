@@ -1,0 +1,37 @@
+{
+  "email": {
+    "required": "Email is required",
+    "email": "Email is not in correct format",
+    "length": "Length from 5 - 160 characters"
+  },
+  "password": {
+    "required": "Password is required",
+    "length": "Length from 5 - 160 characters"
+  },
+  "confirmPassword": {
+    "required": "Confirm password is required",
+    "length": "Length from 5 - 160 characters",
+    "notMatch": "Re-enter password does not match"
+  },
+  "search": {
+    "required": "Product name is required"
+  },
+  "priceFilter": {
+    "notCorrect": "Price not suitable"
+  },
+  "name": {
+    "length": "Maximum length is 160 characters"
+  },
+  "phone": {
+    "length": "Maximum length is 20 characters"
+  },
+  "address": {
+    "length": "Maximum length is 160 characters"
+  },
+  "avatar": {
+    "length": "Maximum length is 1000 characters"
+  },
+  "dateOfBirth": {
+    "notCorrect": "Please select a date in the past"
+  }
+}

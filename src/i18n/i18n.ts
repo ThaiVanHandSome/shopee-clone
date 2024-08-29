@@ -7,6 +7,7 @@ import HEADER_EN from 'src/locales/en/header.json'
 import FOOTER_EN from 'src/locales/en/footer.json'
 import USER_EN from 'src/locales/en/user.json'
 import AUTH_EN from 'src/locales/en/auth.json'
+import RULE_EN from 'src/locales/en/rules.json'
 
 import HOME_VI from 'src/locales/vi/home.json'
 import PRODUCT_VI from 'src/locales/vi/product.json'
@@ -15,6 +16,7 @@ import HEADER_VI from 'src/locales/vi/header.json'
 import FOOTER_VI from 'src/locales/vi/footer.json'
 import USER_VI from 'src/locales/vi/user.json'
 import AUTH_VI from 'src/locales/vi/auth.json'
+import RULE_VN from 'src/locales/vi/rules.json'
 
 export const locales = {
   en: 'English',
@@ -29,7 +31,8 @@ export const resources = {
     header: HEADER_EN,
     footer: FOOTER_EN,
     user: USER_EN,
-    auth: AUTH_EN
+    auth: AUTH_EN,
+    rules: RULE_EN
   },
   vi: {
     home: HOME_VI,
@@ -38,7 +41,8 @@ export const resources = {
     header: HEADER_VI,
     footer: FOOTER_VI,
     user: USER_VI,
-    auth: AUTH_VI
+    auth: AUTH_VI,
+    rules: RULE_VN
   }
 }
 
