@@ -6,5 +6,6 @@
   "cart": "Cart",
   "changePassword": "Change password",
   "login": "Log in",
-  "register": "Register"
+  "register": "Register",
+  "home": "Home"
 }

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getProductDetail, getProducts } from 'src/apis/product.api'
@@ -16,6 +17,7 @@ import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } 
 
 const RANGE = 5
 export default function ProductDetail() {
+  const { t } = useTranslation(['product'])
   const queryClient = useQueryClient()
   const { nameId } = useParams()
   const id = getIdFromNameId(nameId as string)
@@ -215,18 +217,18 @@ export default function ProductDetail() {
                 <div className='mx-4 h-4 w-[1px] bg-gray-300'></div>
                 <div className='flex items-center'>
                   <span className='font-bold'>{formatNumberToSocialStyle(product.sold)}</span>
-                  <span className='ms-1 text-sm text-gray-500'>Đã bán</span>
+                  <span className='ms-1 text-sm text-gray-500'>{t('product:sold')}</span>
                 </div>
               </div>
               <div className='mt-8 flex flex-col justify-start bg-gray-50 px-5 py-4 md:flex-row md:items-center'>
                 <div className='text-gray-500 line-through'>đ{formatCurrency(product.price_before_discount)}</div>
                 <div className='ml-0 text-3xl font-medium text-orange md:ml-3'>đ{formatCurrency(product.price)}</div>
                 <div className='ml-0 w-1/3 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white md:ml-4 md:w-auto'>
-                  {rateSale(product.price_before_discount, product.price)} giảm
+                  {rateSale(product.price_before_discount, product.price)} {t('product:discount')}
                 </div>
               </div>
               <div className='mt-8 flex flex-col items-start md:flex-row md:items-center'>
-                <div className='mb-2 capitalize text-gray-500 md:mb-0'>Số lượng</div>
+                <div className='mb-2 capitalize text-gray-500 md:mb-0'>{t('product:quantity')}</div>
                 <QuantityController
                   max={product.quantity}
                   value={buyCount}
@@ -235,7 +237,9 @@ export default function ProductDetail() {
                   onType={handleBuyCount}
                   classNameWrapper='md:ml-5 mb-2 md:mb-0'
                 />
-                <div className='text-sm text-gray-500 md:ml-6'>{product.quantity} sản phẩm có sẵn</div>
+                <div className='text-sm text-gray-500 md:ml-6'>
+                  {product.quantity} {t('product:available')}
+                </div>
               </div>
               <div className='mt-8 flex flex-col items-center md:flex-row'>
                 <button
@@ -256,13 +260,13 @@ export default function ProductDetail() {
                       d='M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z'
                     />
                   </svg>
-                  <span className='ms-2'>Thêm vào giỏ hàng</span>
+                  <span className='ms-2'>{t('product:addToCart')}</span>
                 </button>
                 <button
                   onClick={handleBuyNow}
                   className='ml-4 flex h-12 items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90 md:min-w-[5rem]'
                 >
-                  Mua Ngay
+                  {t('product:buyNow')}
                 </button>
               </div>
             </div>
@@ -271,7 +275,9 @@ export default function ProductDetail() {
       </div>
       <div className='container'>
         <div className='mt-8 bg-white p-4 shadow'>
-          <div className='rounded bg-gray-50 p-4 text-lg font-semibold capitalize text-slate-700'>Mô tả sản phẩm</div>
+          <div className='rounded bg-gray-50 p-4 text-lg font-semibold capitalize text-slate-700'>
+            {t('product:productDescription')}
+          </div>
           <div className='mx-4 mb-4 mt-4 text-sm leading-loose'>
             <div
               dangerouslySetInnerHTML={{
@@ -283,7 +289,7 @@ export default function ProductDetail() {
       </div>
       <div className='mt-8'>
         <div className='container'>
-          <div className='uppercase text-gray-400'>CÓ THỂ BẠN CŨNG THÍCH</div>
+          <div className='uppercase text-gray-400'>{t('product:youMayAlsoLike')}</div>
           {productData && (
             <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
               {productsData?.data.data.products.map((product) => (
