@@ -18,7 +18,7 @@ export default function InputFile({ onChange }: Props) {
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFromLocal = event.target.files?.[0]
     if (fileFromLocal && (fileFromLocal?.size >= config.maxSizeUploadAvatar || !fileFromLocal.type.includes('image'))) {
-      toast.error('File không đúng định dạng quy định')
+      toast.error('File không đúng định dạng đã quy định')
       return
     }
     onChange && onChange(fileFromLocal)
