@@ -141,15 +141,15 @@ export default function NavBar({ isOpen, setIsOpen }: Props) {
 
             <div className='my-4 bg-orange px-4 py-2'>
               <form className='w-full' onSubmit={onSubmitSearch}>
-                <div className='flex rounded-sm bg-white p-1'>
+                <div className='flex items-center rounded-sm bg-white p-1'>
                   <input
                     {...register('search')}
                     name='search'
                     type='text'
                     placeholder={t('header:inputPlaceholder')}
-                    className='flex-grow border-none bg-transparent px-3 py-2 text-sm text-black outline-none'
+                    className='w-[90%] border-none bg-transparent px-3 py-2 text-sm text-black outline-none'
                   />
-                  <button type='submit' className='flex-shrink-0 rounded-sm transition-all'>
+                  <button type='submit' className='flex-shrink-0 flex-grow rounded-sm transition-all'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
