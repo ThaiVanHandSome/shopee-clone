@@ -244,7 +244,7 @@ export default function ProductDetail() {
               <div className='mt-8 flex flex-col items-center md:flex-row'>
                 <button
                   onClick={handleAddToCart}
-                  className='mb-2 flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5 md:mb-0'
+                  className='mb-2 flex h-12 w-full items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5 md:mb-0 md:w-auto'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -264,7 +264,7 @@ export default function ProductDetail() {
                 </button>
                 <button
                   onClick={handleBuyNow}
-                  className='ml-4 flex h-12 items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90 md:min-w-[5rem]'
+                  className='flex h-12 w-full items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90 md:ml-4 md:w-auto md:min-w-[5rem]'
                 >
                   {t('product:buyNow')}
                 </button>

@@ -39,10 +39,12 @@ export default function DateSelect({ value, onChange, errorMessage }: Props) {
 
   return (
     <div className='mt-2 flex flex-wrap'>
-      <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:dayOfBirth')}</div>
-      <div className='w-[80%] pl-5'>
+      <div className='mb-2 w-full truncate pt-3 text-left capitalize lg:mb-0 lg:w-[20%] lg:text-right'>
+        {t('user:dayOfBirth')}
+      </div>
+      <div className='w-full lg:w-[80%] lg:pl-5'>
         <div className='flex'>
-          <div className='w-1/3 px-3'>
+          <div className='w-1/3 px-2'>
             <select
               onChange={handleChange}
               value={date.day}
@@ -57,7 +59,7 @@ export default function DateSelect({ value, onChange, errorMessage }: Props) {
               ))}
             </select>
           </div>
-          <div className='w-1/3 px-3'>
+          <div className='w-1/3 px-2'>
             <select
               onChange={handleChange}
               name='month'
@@ -72,7 +74,7 @@ export default function DateSelect({ value, onChange, errorMessage }: Props) {
               ))}
             </select>
           </div>
-          <div className='w-1/3 px-3'>
+          <div className='w-1/3 px-2'>
             <select
               onChange={handleChange}
               name='year'

@@ -23,7 +23,7 @@ class HTTP {
   constructor() {
     this.instance = axios.create({
       baseURL: config.baseUrl,
-      timeout: 10000,
+      timeout: 100000,
       headers: {
         'Content-Type': 'application/json',
         'expire-access-token': 10,

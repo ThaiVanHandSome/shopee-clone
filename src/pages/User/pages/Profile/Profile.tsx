@@ -127,16 +127,18 @@ export default function Profile() {
         <div className='mt-1 text-sm text-gray-700'>{t('user:subHeading')}</div>
       </div>
       <form className='mt-8 flex flex-col-reverse md:flex-row md:items-start' onSubmit={onSubmit}>
-        <div className='mt-6 flex-grow pr-12 md:mt-0'>
+        <div className='mt-6 flex-grow md:mt-0 md:pr-6 lg:pr-12'>
           <div className='flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Email</div>
-            <div className='w-[80%] pl-5'>
+            <div className='mb-2 w-full truncate pt-3 text-left capitalize lg:mb-0 lg:w-[20%] lg:text-right'>Email</div>
+            <div className='w-full lg:w-[80%] lg:pl-5'>
               <div className='pt-3 text-gray-300'>{profile?.email}</div>
             </div>
           </div>
-          <div className='mt-6 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:name')}</div>
-            <div className='w-[80%] pl-5'>
+          <div className='mt-2 flex flex-wrap'>
+            <div className='mb-2 w-full truncate pt-3 text-left capitalize lg:mb-0 lg:w-[20%] lg:text-right'>
+              {t('user:name')}
+            </div>
+            <div className='w-full lg:w-[80%] lg:pl-5'>
               <Input
                 register={register}
                 name='name'
@@ -147,8 +149,10 @@ export default function Profile() {
             </div>
           </div>
           <div className='mt-2 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:phoneNumber')}</div>
-            <div className='w-[80%] pl-5'>
+            <div className='mb-2 w-full truncate pt-3 text-left capitalize lg:mb-0 lg:w-[20%] lg:text-right'>
+              {t('user:phoneNumber')}
+            </div>
+            <div className='w-full lg:w-[80%] lg:pl-5'>
               <Controller
                 control={control}
                 name='phone'
@@ -165,8 +169,10 @@ export default function Profile() {
             </div>
           </div>
           <div className='mt-2 flex flex-wrap'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>{t('user:address')}</div>
-            <div className='w-[80%] pl-5'>
+            <div className='mb-2 w-full truncate pt-3 text-left capitalize lg:mb-0 lg:w-[20%] lg:text-right'>
+              {t('user:address')}
+            </div>
+            <div className='w-full lg:w-[80%] lg:pl-5'>
               <Input
                 register={register}
                 name='address'
@@ -184,8 +190,8 @@ export default function Profile() {
             )}
           />
           <div className='mt-2 flex flex-row'>
-            <div className='w-[20%]'></div>
-            <div className='w-[80%] truncate pt-3 text-right capitalize'>
+            <div className='mb-2 hidden w-full text-left lg:mb-0 lg:block lg:w-[20%]'></div>
+            <div className='w-full truncate pt-3 text-right capitalize lg:w-[80%]'>
               <Button
                 type='submit'
                 isLoading={updateProfileMutation.isPending || uploadAvatarMutation.isPending}

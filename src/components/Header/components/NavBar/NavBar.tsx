@@ -92,7 +92,7 @@ export default function NavBar({ isOpen, setIsOpen }: Props) {
                     alt='avatar'
                   />
                 </div>
-                <div className='text-sm font-semibold text-orange'>{profile?.email}</div>
+                <div className='text-sm font-semibold text-gray-500'>{profile?.email}</div>
               </div>
             )}
 
@@ -149,14 +149,14 @@ export default function NavBar({ isOpen, setIsOpen }: Props) {
                     placeholder={t('header:inputPlaceholder')}
                     className='flex-grow border-none bg-transparent px-3 py-2 text-sm text-black outline-none'
                   />
-                  <button type='submit' className='flex-shrink-0 rounded-sm bg-orange transition-all hover:opacity-90'>
+                  <button type='submit' className='flex-shrink-0 rounded-sm transition-all'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
                       viewBox='0 0 24 24'
                       strokeWidth={1.5}
                       stroke='currentColor'
-                      className='size-6'
+                      className='size-6 text-orange'
                     >
                       <path
                         strokeLinecap='round'
@@ -228,7 +228,7 @@ export default function NavBar({ isOpen, setIsOpen }: Props) {
                       }
                     >
                       <span>{t('header:cart')}</span>
-                      <span className='font-bold text-orange'>{cart?.length}</span>
+                      <span className='rounded-full bg-orange px-2 py-1 font-bold text-white'>{cart?.length}</span>
                     </NavLink>
                   </li>
                   <li>
